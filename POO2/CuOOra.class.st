@@ -17,6 +17,11 @@ instancia iniciarTopics ;iniciarUsers.
 ]
 
 { #category : #'adding elements' }
+CuOOra >> addTopics: name [
+	topics add: name.
+]
+
+{ #category : #'adding elements' }
 CuOOra >> addTopics: name desc: aString [
 	"se verifica que el topico no exista ya en el sistema,si existe 
 	 no se agrega y devuelve falso , si no existe , se agrega y se 

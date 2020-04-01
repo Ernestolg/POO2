@@ -98,6 +98,13 @@ User >> followers [
 ]
 
 { #category : #'adding elements' }
+User >> makeAnswer:title [
+	postsAnswer add:title.
+	
+ 
+]
+
+{ #category : #'adding elements' }
 User >> makeAnswer: aQuestion text: text [
 	"creo una instancia de respuesta y la cargo a mis respuestas"
 
@@ -105,6 +112,13 @@ User >> makeAnswer: aQuestion text: text [
 	answer := Answer crearRespuesta: self text: text question: aQuestion.
 	myAnswer add: answer.
 	^answer.
+]
+
+{ #category : #'adding elements' }
+User >> makeQuestion:title [
+	postsQuestion add:title.
+	
+ 
 ]
 
 { #category : #'adding elements' }
@@ -150,6 +164,16 @@ User >> password [
 { #category : #initialization }
 User >> password: anObject [
 	password := anObject
+]
+
+{ #category : #accessing }
+User >> postsAnswer [ 
+	^ postsAnswer  
+]
+
+{ #category : #accessing }
+User >> postsQuestion [
+	^ postsQuestion 
 ]
 
 { #category : #accessing }
