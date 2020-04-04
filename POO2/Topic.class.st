@@ -34,16 +34,15 @@ Topic >> description: anObject [
 	description := anObject
 ]
 
-{ #category : #remove }
-Topic >> eliminarPregunta:aQuestion [
-"remueve la pregunta de los topicos, como es utilizado desde las preguntas , este metodo no 
- retornaria nada mas"
-	questions := questions remove: aQuestion .
-]
-
 { #category : #'initialization - private' }
 Topic >> iniciarQuestions [
 	questions:= OrderedCollection new.
+]
+
+{ #category : #'adding elements' }
+Topic >> myQuestions:aCollection [
+	aCollection addAll: questions.
+	^aCollection
 ]
 
 { #category : #accessing }
@@ -59,6 +58,13 @@ Topic >> name: anObject [
 { #category : #accessing }
 Topic >> questions [
 	^ questions.
+]
+
+{ #category : #remove }
+Topic >> removeQuestion:aQuestion [
+"remueve la pregunta de los topicos, como es utilizado desde las preguntas , este metodo no 
+ retornaria nada mas"
+	 questions remove: aQuestion .
 ]
 
 { #category : #accessing }

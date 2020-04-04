@@ -23,6 +23,29 @@ Answer >> crearRespuesta: aUser text: aString question: aQuestion [
 ]
 
 { #category : #accesing }
+Answer >> imFromUser:anUser [
+	^(user esMiUsuario: anUser).
+]
+
+{ #category : #accesing }
 Answer >> question [
 	^question.
+]
+
+{ #category : #remove }
+Answer >> removeFromQuestion [
+ question removeAnswer: self.
+ 
+]
+
+{ #category : #remove }
+Answer >> removeFromUser [
+	user removeAnswer:self.
+ 
+]
+
+{ #category : #remove }
+Answer >> removeMe [ 
+	self removeFromUser.
+ 
 ]

@@ -53,17 +53,13 @@ Posts >> interaction [
 { #category : #accesing }
 Posts >> puntaje [
 "devuelve la suma de todos los puntajes "
-^interaction sum:[:each| each point ].
+ (interaction isEmpty) ifTrue: [ ^0 ] ifFalse:[^interaction sum:[:each| each point ]]. 
+
  
 ]
 
 { #category : #remove }
 Posts >> removeLike:aUser [
-	interaction :=interaction reject: [:each| each existeInteraccion:aUser ].
-]
-
-{ #category : #remove }
-Posts >> removerLike:aUser [
 	interaction :=interaction reject: [:each| each existeInteraccion:aUser ].
 ]
 

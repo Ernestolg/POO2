@@ -42,12 +42,55 @@ Question >> crearPregunta:aStringT topicos:collectionT desc:aStringD author:aUse
 
 { #category : #accesing }
 Question >> myAnswer [
+	^myAnswers .
+]
+
+{ #category : #accesing }
+Question >> myAnswerSorted [
 "no funciona el sorted Collection"
-	| col |
-	col := SortedCollection
-		sortBlock: [ :arg1 :arg2 | (arg1 puntaje) <= (arg2 puntaje) ].
-	col addAll: (myAnswers) .	
-	^ col.
+	| coleccion |
+	coleccion:=SortedCollection sortBlock:[:a :b| a puntaje  >= b puntaje  ].
+	coleccion addAll: (myAnswers) .	
+	^ coleccion.
+]
+
+{ #category : #accesing }
+Question >> puntosSinUser [
+"creo una coleccion y la cargo con todas las respuestas de otro usuario
+que no sea el creador de la pregunta"
+	| coleccion |
+	coleccion := myAnswers reject: [ :each | each imFromUser: user ].
+	^(coleccion size * 50)
+]
+
+{ #category : #remove }
+Question >> removeAnswer:aAnswer [
+ "elimino una respuesta de esta pregunta"
+	myAnswers remove: aAnswer.
+]
+
+{ #category : #remove }
+Question >> removeFromTopic [
+	topics do:[:each| each removeQuestion:self].
+]
+
+{ #category : #remove }
+Question >> removeFromUser [
+	user removeQuestion: self.
+]
+
+{ #category : #remove }
+Question >> removeMe [
+	myAnswers ifNotEmpty: [ myAnswers do: [ :each | each removeMe ] ].
+	self
+		removeMyAnswer ;
+		removeFromTopic;
+		removeFromUser
+]
+
+{ #category : #remove }
+Question >> removeMyAnswer [
+	myAnswers :=nil.
 ]
 
 { #category : #accesing }
