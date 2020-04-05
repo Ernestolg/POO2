@@ -41,6 +41,11 @@ Question >> crearPregunta:aStringT topicos:collectionT desc:aStringD author:aUse
 ]
 
 { #category : #accesing }
+Question >> imFromUser:anUser [
+	^(user esMiUsuario: anUser).
+]
+
+{ #category : #accesing }
 Question >> myAnswer [
 	^myAnswers .
 ]
@@ -52,15 +57,6 @@ Question >> myAnswerSorted [
 	coleccion:=SortedCollection sortBlock:[:a :b| a puntaje  >= b puntaje  ].
 	coleccion addAll: (myAnswers) .	
 	^ coleccion.
-]
-
-{ #category : #accesing }
-Question >> puntosSinUser [
-"creo una coleccion y la cargo con todas las respuestas de otro usuario
-que no sea el creador de la pregunta"
-	| coleccion |
-	coleccion := myAnswers reject: [ :each | each imFromUser: user ].
-	^(coleccion size * 50)
 ]
 
 { #category : #remove }

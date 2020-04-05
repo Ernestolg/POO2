@@ -23,8 +23,12 @@ Answer >> crearRespuesta: aUser text: aString question: aQuestion [
 ]
 
 { #category : #accesing }
-Answer >> imFromUser:anUser [
-	^(user esMiUsuario: anUser).
+Answer >> puntosSinUser [
+"creo una coleccion y la cargo con todas las respuestas de otro usuario
+que no sea el creador de la pregunta"
+	| coleccion |
+	coleccion := question reject: [ :each | each imFromUser: user ].
+	^(coleccion size * 50)
 ]
 
 { #category : #accesing }
