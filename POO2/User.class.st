@@ -112,7 +112,7 @@ User >> miPuntajeInteraccion [
 "cuento todas las preguntas (valen 20 puntos) y cada respuesta de otro usuario
  a esas preguntas, que valen 50"
  |punto|	
-	punto:=myQuestion sum: [:each | each puntosSinUser ].
+	punto:=myAnswer sum: [:each | each puntosSinUser ].
 	punto:=punto + (myQuestion size * 20).
 	^punto.
 	

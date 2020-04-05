@@ -24,11 +24,9 @@ Answer >> crearRespuesta: aUser text: aString question: aQuestion [
 
 { #category : #accesing }
 Answer >> puntosSinUser [
-"creo una coleccion y la cargo con todas las respuestas de otro usuario
-que no sea el creador de la pregunta"
-	| coleccion |
-	coleccion := question reject: [ :each | each imFromUser: user ].
-	^(coleccion size * 50)
+"pregunto si el user que creo la respuesta coincide con el user creador de la pregunta y 
+	si lo hacen , devuelvo 0 ,sino 50"
+	(question imFromUser: user) ifTrue:[^0] ifFalse:[^50]. 
 ]
 
 { #category : #accesing }
