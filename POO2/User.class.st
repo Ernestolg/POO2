@@ -23,12 +23,6 @@ User class >> user: anUsername withPassword: aPassword [
 ]
 
 { #category : #'adding elements' }
-User >> addFavTopic:topic [
-	favTopics add: topic.
- 
-]
-
-{ #category : #'adding elements' }
 User >> addFavoriteTopic:aTopic [
 	favTopics add: aTopic.
 ]
