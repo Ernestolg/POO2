@@ -28,11 +28,6 @@ Topic >> description: anObject [
 ]
 
 { #category : #'initialization - private' }
-Topic >> iniciarQuestions [
-	questions:= OrderedCollection new.
-]
-
-{ #category : #'initialization - private' }
 Topic >> initialize:aName withDescription:aDescription [
 	name := aName.
 	description := aDescription.
