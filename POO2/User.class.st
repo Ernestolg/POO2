@@ -172,7 +172,7 @@ User >> relevantQuestion [
 "en una coleccion auxiliar recolecto todaslas preguntas de los topicos favoritos
  y de los usuarios que sigo y  la devuelvo"
 |questions|
-	questions:=OrderedCollection new.
+	questions:=Set  new.
 	favTopics ifNotEmpty:[ favTopics do: [:each| each myQuestions:questions]].
 	followers ifNotEmpty: [ followers do: [ :each| each myQuestions: questions ]].	
 	^questions.
