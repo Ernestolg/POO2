@@ -1,97 +1,83 @@
 Class {
 	#name : #Question,
-	#superclass : #Posts,
+	#superclass : #Post,
 	#instVars : [
 		'title',
-		'topics',
-		'myAnswers'
+		'description',
+		'topic',
+		'replies'
 	],
 	#category : #POO2
 }
 
 { #category : #'initialization - private' }
-Question class >> crearPregunta: aStringT topicos: collectionT desc: aStringD author: aUser [
-	| instancia |
-	instancia := self new.
-	instancia
-		crearPregunta: aStringT
-		topicos: collectionT
-		desc: aStringD
-		author: aUser.
-		^instancia
+Question class >> question:aTitle withDescription:aDescription [
+	^ self new initialize: aTitle withDescription:aDescription. 
 ]
 
 { #category : #'adding elements' }
-Question >> addAnswer:anAnswer [
-	myAnswers add:anAnswer.
+Question >> addReply:aReply [
+	replies add: aReply
+]
+
+{ #category : #'adding elements' }
+Question >> addTopic:aTopic [
+	topic add: aTopic.
+]
+
+{ #category : #accessing }
+Question >> description [
+	^ description
+]
+
+{ #category : #accessing }
+Question >> description: anObject [
+	description := anObject
 ]
 
 { #category : #'initialization - private' }
-Question >> crearPregunta:aStringT topicos:collectionT desc:aStringD author:aUser [
- "crea una instancia de pregunta , primero manda un mensaje a self
- para utilizar el metodo definido en la clase padre Posts y luego inicializa
- las variables propias de una pregunta.La ultima linea se encarga de
- mandar la pregunta a todos los topicos que se le enviaron"
- self crearPost:aUser  text:aStringD.
- title:=aStringT.
- topics:=collectionT.
- myAnswers :=OrderedCollection new.
- self soyDeTopicos: collectionT.
-  
+Question >> initialize:aTitle withDescription:aDescription [
+	"it creates a question"
+	self initialize.
+	title := aTitle.
+	description := aDescription.
+	topic := OrderedCollection new.
+	replies := OrderedCollection new.
+
+
 ]
 
-{ #category : #accesing }
-Question >> imFromUser:anUser [
-	^(user esMiUsuario: anUser).
+{ #category : #callback }
+Question >> relevant:anUser [
+	^ topic detect: [ :t | anUser favTopics includes: t ].
 ]
 
-{ #category : #accesing }
-Question >> myAnswer [
-	^myAnswers .
+{ #category : #accessing }
+Question >> replies [
+	^ replies
 ]
 
-{ #category : #accesing }
-Question >> myAnswerSorted [
-"no funciona el sorted Collection"
-	| coleccion |
-	coleccion:=SortedCollection sortBlock:[:a :b| a puntaje  >= b puntaje  ].
-	coleccion addAll: (myAnswers) .	
-	^ coleccion.
+{ #category : #accessing }
+Question >> replies: anObject [
+	replies := anObject
 ]
 
-{ #category : #remove }
-Question >> removeAnswer:aAnswer [
- "elimino una respuesta de esta pregunta"
-	myAnswers remove: aAnswer.
+{ #category : #accessing }
+Question >> title [
+	^ title
 ]
 
-{ #category : #remove }
-Question >> removeFromTopic [
-	topics do:[:each| each removeQuestion:self].
+{ #category : #accessing }
+Question >> title: anObject [
+	title := anObject
 ]
 
-{ #category : #remove }
-Question >> removeFromUser [
-	user removeQuestion: self.
+{ #category : #accessing }
+Question >> topic [
+	^ topic
 ]
 
-{ #category : #remove }
-Question >> removeMe [
-	myAnswers ifNotEmpty: [ myAnswers do: [ :each | each removeMe ] ].
-	self
-		removeMyAnswer ;
-		removeFromTopic;
-		removeFromUser
-]
-
-{ #category : #remove }
-Question >> removeMyAnswer [
-	myAnswers :=nil.
-]
-
-{ #category : #accesing }
-Question >> soyDeTopicos:collectionT [
- "aqui se recibe una coleccion de topicos, los cuales se iteran para que 
-  se agrege en cada uno la instancia de la pregunta ,asi cada topico la conoce"
-	collectionT do: [ :each| each addQuestion:self ].
+{ #category : #accessing }
+Question >> topic: anObject [
+	topic := anObject
 ]
