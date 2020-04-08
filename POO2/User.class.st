@@ -97,16 +97,6 @@ User >> makeQuestion: title body: text topics: collectionT [
 	^aQuestion.
 ]
 
-{ #category : #'adding elements' }
-User >> makeReply: aQuestion text: text [
-	"creo una instancia de respuesta y la cargo a mis respuestas"
-
-	| answer |
-	answer := Reply create: self text: text question: aQuestion.
-	replies add: answer.
-	^answer.
-]
-
 { #category : #accessing }
 User >> myScore [ 
  |score|
@@ -188,4 +178,14 @@ User >> removeReply:aReply [
 { #category : #'accessing values' }
 User >> replies [
 	^ replies  
+]
+
+{ #category : #'adding elements' }
+User >> replyQuestion: aQuestion text: text [
+	"creo una instancia de respuesta y la cargo a mis respuestas"
+
+	| answer |
+	answer := Reply create: self text: text question: aQuestion.
+	replies add: answer.
+	^answer.
 ]
