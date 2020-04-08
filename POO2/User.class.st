@@ -43,12 +43,6 @@ User >> addFavTopic:topic [
  
 ]
 
-{ #category : #'adding elements' }
-User >> addFollower:anUser [
- "agrego este usuario como seguidor de otro pasado por parametro"
- followers add:anUser.
-]
-
 { #category : #'accessing values' }
 User >> creationDate [
 	^ creationDate
@@ -62,6 +56,11 @@ User >> creationTime [
 { #category : #'accessing values' }
 User >> favTopics [
 	^favTopics.
+]
+
+{ #category : #'adding elements' }
+User >> follow:anUser [
+ followers add:anUser.
 ]
 
 { #category : #'accessing values' }
