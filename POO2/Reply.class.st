@@ -30,6 +30,13 @@ Reply class >> create: aUser text: aString question: aQuestion [
 	^instancia.
 ]
 
+{ #category : #'initialization - private' }
+Reply class >> create: anUser withText: aText withQuestion: aQuestion [
+	| instance |
+	instance := self new initialize: anUser withText: aText withQuestion: aQuestion.
+	^instance.
+]
+
 { #category : #'adding elements' }
 Reply >> initialize: anUser withText: aText question: aQuestion [
 	user := anUser.
