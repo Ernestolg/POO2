@@ -83,18 +83,18 @@ replies  := OrderedCollection new.
 favTopics := OrderedCollection new.
 ]
 
-{ #category : #accessing }
+{ #category : #callback }
 User >> itsMe:name2 [
 	"respondo si soy el usuario que recibo"
 	^ name=name2.
 ]
 
-{ #category : #accessing }
+{ #category : #callback }
 User >> itsMyTopic: aTopicName [
 	^ favTopics includes: [ :topic | topic name == aTopicName ].
 ]
 
-{ #category : #accessing }
+{ #category : #callback }
 User >> itsMyUser:aUser [
 	"respondo si soy el usuario que recibo"
 	^ (aUser itsMe:name).
@@ -115,7 +115,7 @@ User >> makeQuestion: title body: text topics: collectionT [
 	^aQuestion.
 ]
 
-{ #category : #accessing }
+{ #category : #callback }
 User >> myScore [ 
  |score|
 	score:=0.
@@ -124,7 +124,7 @@ User >> myScore [
 	
 ]
 
-{ #category : #accessing }
+{ #category : #callback }
 User >> myScoreInteraction [
 	"cuento todas las preguntas (valen 20 puntos) y cada respuesta de otro usuario
  a esas preguntas, que valen 50"
@@ -135,7 +135,7 @@ User >> myScoreInteraction [
 	^scoreAux 
 ]
 
-{ #category : #accessing }
+{ #category : #callback }
 User >> myScoreLikes [
 	"cuento todos los likes en las interacciones del user"
 
@@ -163,7 +163,7 @@ User >> questions [
 	^ questions
 ]
 
-{ #category : #accessing }
+{ #category : #callback }
 User >> relevantQuestion [
 "en una coleccion auxiliar recolecto todaslas preguntas de los topicos favoritos
  y de los usuarios que sigo y  la devuelvo"
