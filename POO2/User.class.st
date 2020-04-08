@@ -145,7 +145,7 @@ User >> removeQuestion:aQuestion [
 { #category : #callback }
 User >> replies [
 	"Returns the replies made by the user"
-	^ Reply allInstances collect: [ :aReply | aReply user username == self username ].
+	^ replies.
 ]
 
 { #category : #accessing }
