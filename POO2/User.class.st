@@ -148,6 +148,17 @@ User >> questions: anObject [
 	questions := anObject
 ]
 
+{ #category : #accessing }
+User >> relevantQuestion [
+"en una coleccion auxiliar recolecto todaslas preguntas de los topicos favoritos
+ y de los usuarios que sigo y  la devuelvo"
+|questions|
+	questions:=Set  new.
+	favTopics ifNotEmpty:[ favTopics do: [:each| each myQuestions:questions]].
+	followers ifNotEmpty: [ followers do: [ :each| each myQuestions: questions ]].	
+	^questions.
+]
+
 { #category : #callback }
 User >> relevantQuestions [
 	^ questions collect: [:question | question relevant: self ]
@@ -162,17 +173,6 @@ User >> removeQuestion:aQuestion [
 User >> replies [
 	"Returns the replies made by the user"
 	^ replies.
-]
-
-{ #category : #accessing }
-User >> relevantQuestion [
-"en una coleccion auxiliar recolecto todaslas preguntas de los topicos favoritos
- y de los usuarios que sigo y  la devuelvo"
-|questions|
-	questions:=Set  new.
-	favTopics ifNotEmpty:[ favTopics do: [:each| each myQuestions:questions]].
-	followers ifNotEmpty: [ followers do: [ :each| each myQuestions: questions ]].	
-	^questions.
 ]
 
 { #category : #accessing }

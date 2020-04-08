@@ -39,8 +39,8 @@ users:=OrderedCollection new.
 ]
 
 { #category : #acccessing }
-CuOOra >> topicExist:topic [
- users detect: [ :each|each soyYo:topic ] ifFound:[^true].
+CuOOra >> topicExist:aTopicName [
+ topics detect: [ :topic| topic name == aTopicName ] ifFound:[^true].
  ^false.
 ]
 
@@ -55,7 +55,7 @@ CuOOra >> users [
 ]
 
 { #category : #acccessing }
-CuOOra >> usersExist:name [
- users detect: [ :each|each soyYo: name ] ifFound:[^true].
+CuOOra >> usersExist: aUsername [
+ users detect: [ :user|user username == aUsername ] ifFound:[^true].
  ^false.
 ]
