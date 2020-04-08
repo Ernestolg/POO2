@@ -72,6 +72,11 @@ User >> itsMe:name2 [
 ]
 
 { #category : #accessing }
+User >> itsMyTopic: aTopicName [
+	^ favTopics includes: [ :topic | topic name == aTopicName ].
+]
+
+{ #category : #accessing }
 User >> itsMyUser:aUser [
 	"respondo si soy el usuario que recibo"
 	^ (aUser itsMe:name).
