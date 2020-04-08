@@ -54,9 +54,6 @@ CuOOra >> users [
 ]
 
 { #category : #acccessing }
-CuOOra >> usersExist:name [
-	"Si existe el usuario en el sistema devuelve true , si no existe devuelve
-	false"
- users detect: [ :each|each itsMe: name ] ifFound:[^true].
- ^false.
+CuOOra >> usersExist:anUsername [
+ ^ users includes: [ :user |user username == anUsername ].
 ]
