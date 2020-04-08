@@ -26,13 +26,14 @@ Question >> addTopic:aTopic [
 ]
 
 { #category : #'initialization - private' }
-Question >> initialize:aTitle withDescription:aDescription [
+Question >> initialize:aTitle withDescription:aDescription withUser: anUser [
 	"it creates a question"
 	self initialize.
 	title := aTitle.
 	text := aDescription.
 	topic := OrderedCollection new.
 	replies := OrderedCollection new.
+	user := anUser.
 
 
 ]
