@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'creationDate',
 		'creationTime',
-		'interactions'
+		'interactions',
+		'text'
 	],
 	#category : #POO2
 }
@@ -86,4 +87,14 @@ Post >> remove [
 { #category : #callback }
 Post >> removeInteraction:aUser [
 	interactions := interactions reject: [ :interaction | interaction user = aUser ].
+]
+
+{ #category : #accessing }
+Post >> text [
+	^ text
+]
+
+{ #category : #accessing }
+Post >> text: anObject [
+	text := anObject
 ]
