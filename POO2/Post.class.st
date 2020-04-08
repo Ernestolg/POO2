@@ -6,7 +6,7 @@ Class {
 		'creationTime',
 		'user',
 		'interactions',
-		'textBody'
+		'text'
 	],
 	#category : #POO2
 }
@@ -31,7 +31,7 @@ Post >> createPost:aUser text:aString [
 	creationDate:= Date today.
 	creationTime:= Time now.
 	user:=aUser.
-	textBody:=aString.
+	text:=aString.
 	interactions:=OrderedCollection new.
 ]
 
@@ -66,8 +66,8 @@ Post >> score [
 ]
 
 { #category : #accesing }
-Post >> textBody [
-	^textBody
+Post >> text [
+	^text
 ]
 
 { #category : #accesing }
