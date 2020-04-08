@@ -14,15 +14,12 @@ CuOOra class >> create [
 ]
 
 { #category : #'adding elements' }
-CuOOra >> addTopics: name desc: aString [
-	"se verifica que el topico no exista ya en el sistema,si existe 
-	 no se agrega y devuelve falso , si no existe , se agrega y se 
-	 devuelve true"
-	|instance|
+CuOOra >> addTopic: name withDescription: aDescription [	
+	|aTopic|
 	(self topicExist: name)ifTrue:[^false].
-	instance:= Topic create: name withDescription: aString. 
-	topics add: instance.
-	^instance.
+	aTopic := Topic create: name withDescription: aDescription. 
+	topics add: aTopic.
+	^aTopic.
 ]
 
 { #category : #'adding elements' }
