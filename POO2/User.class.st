@@ -119,7 +119,17 @@ User >> password: anObject [
 { #category : #callback }
 User >> postingScore [
 	
-	^ ((questions inject: 0 into: [ :likes :question | likes +  question likes]) + (questions inject: 0 into: [:dislikes :question | dislikes + question dislikes ])).
+	^ (self questionLikeScoring + self replyLikeScoring - self questionDislikeScoring - self replyDislikeScoring ).
+]
+
+{ #category : #callback }
+User >> questionDislikeScoring [
+	^ questions inject: 0 into: [ :dislikes :question | dislikes +  question dislikes].
+]
+
+{ #category : #callback }
+User >> questionLikeScoring [
+	^ questions inject: 0 into: [ :likes :question | likes +  question likes].
 ]
 
 { #category : #callback }
@@ -157,6 +167,16 @@ User >> replies [
 { #category : #accessing }
 User >> replies: anObject [
 	replies := anObject
+]
+
+{ #category : #callback }
+User >> replyDislikeScoring [
+	^ replies inject: 0 into: [ :dislikes :reply | dislikes +  reply dislikes].
+]
+
+{ #category : #callback }
+User >> replyLikeScoring [
+	^ replies inject: 0 into: [ :likes :reply | likes +  reply likes].
 ]
 
 { #category : #'adding elements' }
