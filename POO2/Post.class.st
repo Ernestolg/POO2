@@ -5,7 +5,8 @@ Class {
 		'creationDate',
 		'creationTime',
 		'interactions',
-		'text'
+		'text',
+		'user'
 	],
 	#category : #POO2
 }
