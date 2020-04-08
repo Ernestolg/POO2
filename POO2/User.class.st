@@ -43,6 +43,14 @@ User >> addFavTopic:topic [
  
 ]
 
+{ #category : #'adding elements' }
+User >> askQuestion: title withText:aText withTopics: aTopicsCollection [
+	| aQuestion |
+	aQuestion := Question create: title withTopics: aTopicsCollection withDescription: aText withAuthor: self.
+	questions add: aQuestion.
+	^aQuestion.
+]
+
 { #category : #'accessing values' }
 User >> creationDate [
 	^ creationDate
@@ -96,21 +104,6 @@ User >> itsMyTopic: aTopicName [
 User >> itsMyUser:aUser [
 	"respondo si soy el usuario que recibo"
 	^ (aUser itsMe:name).
-]
-
-{ #category : #'adding elements' }
-User >> makeQuestion: title body: text topics: collectionT [ 
-	"creo una instancia de pregunta y la agrego a mis preguntas,
-	la instancia de pregunta debe tener el usuario que la hizo
-	por esa razon le paso self , y tambien una coleccion de topicos"
-	| aQuestion |
-	aQuestion := Question
-		create: title
-		topics: collectionT
-		desc: text
-		author: self.
-	questions add: aQuestion.
-	^aQuestion.
 ]
 
 { #category : #callback }
