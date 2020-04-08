@@ -25,15 +25,10 @@ Class {
 }
 
 { #category : #'initialization - private' }
-Question class >> create: aStringT topics: collectionT desc: aStringD author: aUser [
-	| instancia |
-	instancia := self new.
-	instancia
-		create: aStringT
-		topics: collectionT
-		desc: aStringD
-		author: aUser.
-		^instancia
+Question class >> create:aTitle withTopics: aTopicsCollection withDescription: aDescription withAuthor: anUser [
+	| instance |
+	instance := self new initialize:aTitle withTopics: aTopicsCollection withDescription: aDescription withAuthor: anUser.
+	^instance.
 ]
 
 { #category : #'adding elements' }
