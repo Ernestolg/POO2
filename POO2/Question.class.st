@@ -25,22 +25,12 @@ Question >> addTopic:aTopic [
 	topic add: aTopic.
 ]
 
-{ #category : #accessing }
-Question >> description [
-	^ description
-]
-
-{ #category : #accessing }
-Question >> description: anObject [
-	description := anObject
-]
-
 { #category : #'initialization - private' }
 Question >> initialize:aTitle withDescription:aDescription [
 	"it creates a question"
 	self initialize.
 	title := aTitle.
-	description := aDescription.
+	text := aDescription.
 	topic := OrderedCollection new.
 	replies := OrderedCollection new.
 

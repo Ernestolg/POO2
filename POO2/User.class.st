@@ -119,7 +119,23 @@ User >> password: anObject [
 { #category : #callback }
 User >> postingScore [
 	
-	^ ((questions inject: 0 into: [ :likes :question | likes +  question likes]) + (questions inject: 0 into: [:dislikes :question | dislikes + question dislikes ])).
+	^ (self questionLikeScoring + self replyLikeScoring - self questionDislikeScoring - self replyDislikeScoring ).
+]
+
+{ #category : #callback }
+User >> questionDislikeScoring [
+	^ questions inject: 0 into: [ :dislikes :question | dislikes +  question dislikes].
+]
+
+{ #category : #callback }
+User >> questionLikeScoring [
+	^ questions inject: 0 into: [ :likes :question | likes +  question likes].
+]
+
+{ #category : #callback }
+User >> questionScoring [
+	
+	^ questions size * 50.
 ]
 
 { #category : #accessing }
@@ -145,7 +161,7 @@ User >> removeQuestion:aQuestion [
 { #category : #callback }
 User >> replies [
 	"Returns the replies made by the user"
-	^ Reply allInstances collect: [ :aReply | aReply user username == self username ].
+	^ replies.
 ]
 
 { #category : #accessing }
@@ -164,26 +180,36 @@ User >> replies: anObject [
 	replies := anObject
 ]
 
+{ #category : #callback }
+User >> replyDislikeScoring [
+	^ replies inject: 0 into: [ :dislikes :reply | dislikes +  reply dislikes].
+]
+
+{ #category : #callback }
+User >> replyLikeScoring [
+	^ replies inject: 0 into: [ :likes :reply | likes +  reply likes].
+]
+
 { #category : #'adding elements' }
 User >> replyQuestion:aQuestion withText:aText [
 	|aReply|
 	aReply := Reply reply: aQuestion  withText: aText withUser: self.
 	"question := Question allInstances detect: [ :q | q title equals: aQuestion ]."
 	aQuestion addReply: aReply.
+	replies add: aReply.
 	^ aReply.
 	
 ]
 
 { #category : #callback }
+User >> replyScoring [
+	
+	^ questions size * 50.
+]
+
+{ #category : #callback }
 User >> score [
-	|r|
-	"q := questions size."
-	"r := replies size."
-	"^ ((q * 20) + (r * 50))."
-	
-	r := replies size.
-	
-	^ r.
+	^ (self postingScore + self questionScoring + self replyScoring).
 ]
 
 { #category : #accessing }

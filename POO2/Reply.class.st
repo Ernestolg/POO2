@@ -3,7 +3,6 @@ Class {
 	#superclass : #Post,
 	#instVars : [
 		'question',
-		'text',
 		'user'
 	],
 	#category : #POO2
@@ -38,16 +37,6 @@ Reply >> score [
 	likes := interactions count:[:interaction| interaction like ].
 	dislikes := interactions count:[:interaction| interaction like not].
 	^ (likes - dislikes)
-]
-
-{ #category : #accessing }
-Reply >> text [
-	^ text
-]
-
-{ #category : #accessing }
-Reply >> text: anObject [
-	text := anObject
 ]
 
 { #category : #accessing }
