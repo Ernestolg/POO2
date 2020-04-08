@@ -122,6 +122,12 @@ User >> postingScore [
 	^ ((questions inject: 0 into: [ :likes :question | likes +  question likes]) + (questions inject: 0 into: [:dislikes :question | dislikes + question dislikes ])).
 ]
 
+{ #category : #callback }
+User >> questionScoring [
+	
+	^ questions size * 50.
+]
+
 { #category : #accessing }
 User >> questions [
 	^ questions
@@ -162,6 +168,12 @@ User >> replyQuestion:aQuestion withText:aText [
 	replies add: aReply.
 	^ aReply.
 	
+]
+
+{ #category : #callback }
+User >> replyScoring [
+	
+	^ questions size * 50.
 ]
 
 { #category : #callback }
