@@ -182,7 +182,7 @@ User >> removeQuestion:aQuestion [
 
 ]
 
-{ #category : #removing }
+{ #category : #remove }
 User >> removeReplies:aQuestion [
 	aQuestion replies do: [ :reply | replies remove: reply].
 ]
