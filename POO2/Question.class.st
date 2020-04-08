@@ -38,6 +38,13 @@ Question >> initialize:aTitle withDescription:aDescription [
 ]
 
 { #category : #callback }
+Question >> madeByFollower:anUser [
+	"Check if the user who asked the question is follower of anUser"
+	^ anUser followers includes: [ :u | u username == anUser username ]. 
+	
+]
+
+{ #category : #callback }
 Question >> relevant:anUser [
 	^ topic detect: [ :t | anUser favTopics includes: t ].
 ]
