@@ -2,8 +2,7 @@ Class {
 	#name : #Reply,
 	#superclass : #Post,
 	#instVars : [
-		'question',
-		'user'
+		'question'
 	],
 	#category : #POO2
 }
