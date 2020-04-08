@@ -1,3 +1,21 @@
+"
+Class
+------------------
+It represents an User
+
+Responsibilities
+__________________
+- User scoring
+- Create and delete questions.
+- Follow other users
+- Reply a question.
+
+Related with
+__________________
+Each user has a collection of his own questions and replies. Also, the user has a collection of favorite topics.
+
+
+"
 Class {
 	#name : #User,
 	#superclass : #Object,

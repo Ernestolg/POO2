@@ -1,3 +1,18 @@
+"
+Class
+------------------
+It represents a reply made by a user to a Question.
+
+Responsibilities
+__________________
+- Reply Scoring
+- It knows who is its writer and the question
+
+
+Related with
+__________________
+Each user has a collection of replies, when a user replies a Question, the reply is saved in replies collection.
+"
 Class {
 	#name : #Reply,
 	#superclass : #Post,

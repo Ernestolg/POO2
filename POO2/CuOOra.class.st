@@ -1,3 +1,16 @@
+"
+Class
+------------------
+It represents the Cuoora System.
+
+Responsibilities
+__________________
+It manages the users and topics in the system.
+
+Collaborators
+__________________
+It has a collection of Users objects and Topics objects.
+"
 Class {
 	#name : #CuOOra,
 	#superclass : #Object,

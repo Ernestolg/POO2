@@ -1,3 +1,18 @@
+"
+Class
+------------------
+It represents a Question written by a User.
+
+Responsibilities
+__________________
+- Register a question
+- Each question knows who is its writer, topics related with the question content.
+
+Related with
+__________________
+Each user has a collection of questions. Besides, each question has a collection of replies.
+When a user replies to a question, it register that reply, saving in its reply collection. 
+"
 Class {
 	#name : #Question,
 	#superclass : #Post,

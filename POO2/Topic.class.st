@@ -1,3 +1,16 @@
+"
+Class
+------------------
+It represent a topic of a Post.
+
+Responsibilities
+__________________
+
+
+Related with
+__________________
+- Each Post has a collection of topics. Besides, each user has a collection of favorite topics.
+"
 Class {
 	#name : #Topic,
 	#superclass : #Object,

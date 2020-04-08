@@ -1,3 +1,16 @@
+"
+Class
+------------------
+It represents a post interaction or reaction made by an user. It could be a like or dislike.
+
+Responsibilities
+__________________
+
+
+Collaborators
+__________________
+Each interaction belongs to a single Post object.
+"
 Class {
 	#name : #Interaction,
 	#superclass : #Object,

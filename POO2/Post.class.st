@@ -1,3 +1,17 @@
+"
+Class
+------------------
+It represents a post made by a user. Its a father class.
+
+Responsibilities
+__________________
+- Register like or dislike from a user
+- Calculate scoring (Post scoring, reaction scoring, etc.)
+
+Related with
+__________________
+Each user has a collection of Posts (represented by Question or Reply Objects).
+"
 Class {
 	#name : #Post,
 	#superclass : #Object,
