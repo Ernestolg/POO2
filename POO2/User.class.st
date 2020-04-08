@@ -168,9 +168,15 @@ User >> relevantQuestion [
 
 { #category : #remove }
 User >> removeQuestion:aQuestion [
-"elimina la pregunta de mi coleccion de preguntas"
- questions remove: aQuestion .
+	questions detect: [ :question | question text == aQuestion text ] 
+							ifFound: [ self removeReply: aQuestion ] 
+							ifNone: [ ^ nil ].
 
+]
+
+{ #category : #removing }
+User >> removeReplies:aQuestion [
+	aQuestion replies do: [ :reply | replies remove: reply].
 ]
 
 { #category : #remove }
