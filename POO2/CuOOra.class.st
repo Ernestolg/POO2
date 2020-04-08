@@ -10,10 +10,7 @@ Class {
 
 { #category : #initialization }
 CuOOra class >> create [ 
-|instancia|
-instancia:= self new.
-instancia beginTopics ;beginUsers.
-^instancia.
+^self new initialize.
 ]
 
 { #category : #'adding elements' }
@@ -23,7 +20,7 @@ CuOOra >> addTopics: name desc: aString [
 	 devuelve true"
 	|instance|
 	(self topicExist: name)ifTrue:[^false].
-	instance:= Topic create: name desc: aString. 
+	instance:= Topic create: name withDescription: aString. 
 	topics add: instance.
 	^instance.
 ]
@@ -34,19 +31,16 @@ CuOOra >> addUser: name pass: key [
   existe se agrega ,devolviendo true, si el usuario ya existe , se devuelve falso"
 |person|
  (self usersExist: name) ifTrue: [ ^false ].
- person:=User create:name pass:key.
+ person:=User create:name withPassword:key.
  users add: person.  
  ^person.
 ]
 
 { #category : #'initialization - private' }
-CuOOra >> beginTopics [
-topics:=OrderedCollection new.
-]
+CuOOra >> initialize [
+ users:=OrderedCollection new.
+ topics:=OrderedCollection new.
 
-{ #category : #'initialization - private' }
-CuOOra >> beginUsers [
-users:=OrderedCollection new.
 ]
 
 { #category : #acccessing }

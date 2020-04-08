@@ -10,18 +10,10 @@ Class {
 }
 
 { #category : #initialization }
-Topic class >> create: tName desc: tDesc [
-|topic|
-topic := self new.
-topic name:tName ;description: tDesc ; beginQuestions .
-^topic.
+Topic class >> create: tName withDescription: tDesc [
+^self new initialize:tName withDescription:tDesc
 
   
-]
-
-{ #category : #'initialization - private' }
-Topic >> beginQuestions [
-	questions:= OrderedCollection new.
 ]
 
 { #category : #accessing }
@@ -30,8 +22,11 @@ Topic >> description [
 ]
 
 { #category : #'initialization - private' }
-Topic >> description: aString [
-	description := aString
+Topic >> initialize:tName withDescription:desc [
+
+name:=tName.
+description:=desc.
+questions := OrderedCollection new.
 ]
 
 { #category : #accessing }
@@ -44,11 +39,6 @@ Topic >> itsMe:aString [
 { #category : #accessing }
 Topic >> name [
 	^ name.
-]
-
-{ #category : #'initialization - private' }
-Topic >> name: anObject [
-	name := anObject
 ]
 
 { #category : #accessing }

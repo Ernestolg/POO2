@@ -15,11 +15,8 @@ Class {
 }
 
 { #category : #initialization }
-User class >> create:nameUser pass:passUser [
-|objeto|
-objeto := self new .
-objeto makeUser:nameUser  pass:passUser. 
-^objeto.
+User class >> create:aUsername withPassword:aPassword [
+^self new initialize:aUsername withPassword:aPassword.
 ]
 
 { #category : #'adding elements' }
@@ -53,6 +50,19 @@ User >> favTopics [
 { #category : #'accessing values' }
 User >> followers [
 	^ followers
+]
+
+{ #category : #initialization }
+User >> initialize:nameUser withPassword:passUser [
+
+name:=nameUser.
+password:=passUser.
+creationDate:= Date today.
+creationTime:= Time now.
+followers := OrderedCollection new .
+questions := OrderedCollection new.
+replies  := OrderedCollection new.
+favTopics := OrderedCollection new.
 ]
 
 { #category : #accessing }
@@ -90,18 +100,6 @@ User >> makeReply: aQuestion text: text [
 	answer := Reply create: self text: text question: aQuestion.
 	replies add: answer.
 	^answer.
-]
-
-{ #category : #initialization }
-User >> makeUser:nameUser pass:passUser [
-
-self name:nameUser;password:passUser.
-creationDate:= Date today.
-creationTime:= Time now.
-followers := OrderedCollection new .
-questions := OrderedCollection new.
-replies  := OrderedCollection new.
-favTopics := OrderedCollection new.
 ]
 
 { #category : #accessing }
@@ -142,19 +140,9 @@ User >> name [
 	^ name
 ]
 
-{ #category : #initialization }
-User >> name: anObject [
-	name := anObject
-]
-
 { #category : #'accessing values' }
 User >> password [
 	^ password
-]
-
-{ #category : #initialization }
-User >> password: anObject [
-	password := anObject
 ]
 
 { #category : #'accessing values' }
