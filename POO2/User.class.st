@@ -198,14 +198,7 @@ User >> replyScoring [
 
 { #category : #callback }
 User >> score [
-	|r|
-	"q := questions size."
-	"r := replies size."
-	"^ ((q * 20) + (r * 50))."
-	
-	r := replies size.
-	
-	^ r.
+	^ (self postingScore + self questionScoring + self replyScoring).
 ]
 
 { #category : #accessing }
