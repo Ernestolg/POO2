@@ -30,7 +30,7 @@ User >> addFavoriteTopic:aTopic [
 { #category : #'add/remove' }
 User >> askQuestion:aTitle withDescription:aDescription withTopic:aTopic [
 	|aQuestion|
-	aQuestion := Question question: aTitle withDescription: aDescription.
+	aQuestion := Question question: aTitle withDescription: aDescription withUser:self.
 	aQuestion addTopic: aTopic.
 	questions add: aQuestion.
 	^ aQuestion.

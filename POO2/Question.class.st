@@ -11,8 +11,8 @@ Class {
 }
 
 { #category : #'initialization - private' }
-Question class >> question:aTitle withDescription:aDescription [
-	^ self new initialize: aTitle withDescription:aDescription. 
+Question class >> question:aTitle withDescription:aDescription withUser:anUser [
+	^ self new initialize: aTitle withDescription:aDescription withUser: anUser.
 ]
 
 { #category : #'adding elements' }
@@ -46,7 +46,7 @@ Question >> madeByFollower:anUser [
 
 { #category : #callback }
 Question >> relevant:anUser [
-	^ topic detect: [ :t | anUser favTopics includes: t ].
+	^ topic includes: [ :t | (anUser favTopics includes: t) | (self relevant: anUser) ].
 ]
 
 { #category : #accessing }
