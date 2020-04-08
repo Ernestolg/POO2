@@ -22,10 +22,10 @@ CuOOra >> addTopics: name [
 ]
 
 { #category : #'adding elements' }
-CuOOra >> addUser: name pass: key [
-|persona|
- persona:=User cargar:name pass:key.
- users add: persona.  
+CuOOra >> addUser: aUsername withPassword: aPassword [
+	|aUser|
+	aUser := User user: aUsername withPassword: aPassword.
+	users add: aUser.
 ]
 
 { #category : #'initialization - private' }
