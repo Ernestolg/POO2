@@ -1,170 +1,151 @@
+"
+""User class""
+"
 Class {
 	#name : #User,
 	#superclass : #Object,
 	#instVars : [
-		'name',
+		'username',
 		'password',
 		'creationDate',
 		'creationTime',
-		'myQuestion',
-		'myAnswer',
+		'questions',
+		'replies',
 		'favTopics',
 		'followers'
 	],
 	#category : #POO2
 }
 
-{ #category : #initialization }
-User class >> cargar:nameUser pass:passUser [
-|objeto|
-objeto := self new .
-objeto crearUsuario:nameUser  pass:passUser. 
-^objeto.
+{ #category : #'initialization - private' }
+User class >> user: anUsername withPassword: aPassword [ 
+	^ self new initialize: anUsername  withPassword: aPassword.
 ]
 
 { #category : #'adding elements' }
-User >> addFavTopic:topic [
-	"agrego mi topico favorito,que llega por parametro"
-	favTopics add: topic.
- 
+User >> addFavoriteTopic:aTopic [
+	favTopics add: aTopic.
 ]
 
-{ #category : #'adding elements' }
-User >> addFollower:anUser [
- "agrego este usuario como seguidor de otro pasado por parametro"
- followers add:anUser.
+{ #category : #'add/remove' }
+User >> askQuestion:aTitle withDescription:aDescription withTopic:aTopic [
+	|aQuestion|
+	aQuestion := Question question: aTitle withDescription: aDescription.
+	aQuestion addTopic: aTopic.
+	questions add: aQuestion.
+	^ aQuestion.
 ]
 
-{ #category : #initialization }
-User >> crearUsuario:nameUser pass:passUser [
-
-self name:nameUser;password:passUser.
-creationDate:= Date today.
-creationTime:= Time now.
-followers := OrderedCollection new .
-myQuestion := OrderedCollection new.
-myAnswer  := OrderedCollection new.
-favTopics := OrderedCollection new.
-]
-
-{ #category : #'accessing values' }
+{ #category : #accessing }
 User >> creationDate [
 	^ creationDate
 ]
 
-{ #category : #'accessing values' }
+{ #category : #accessing }
+User >> creationDate: anObject [
+	creationDate := anObject
+]
+
+{ #category : #accessing }
 User >> creationTime [
 	^ creationTime
 ]
 
 { #category : #accessing }
-User >> esMiUsuario:aUser [
-	"respondo si soy el usuario que recibo"
-	^ (aUser soyYo: name).
+User >> creationTime: anObject [
+	creationTime := anObject
 ]
 
-{ #category : #'accessing values' }
+{ #category : #'adding elements' }
+User >> dislike:aPost [
+	aPost like:false.
+]
+
+{ #category : #accessing }
 User >> favTopics [
-	^favTopics.
+	^ favTopics
 ]
 
-{ #category : #'accessing values' }
+{ #category : #accessing }
+User >> favTopics: anObject [
+	favTopics := anObject
+]
+
+{ #category : #'adding elements' }
+User >> follow:aUser [
+	followers add: aUser.
+]
+
+{ #category : #accessing }
 User >> followers [
 	^ followers
 ]
 
-{ #category : #'adding elements' }
-User >> makeAnswer: aQuestion text: text [
-	"creo una instancia de respuesta y la cargo a mis respuestas"
-
-	| answer |
-	answer := Answer crearRespuesta: self text: text question: aQuestion.
-	myAnswer add: answer.
-	^answer.
-]
-
-{ #category : #'adding elements' }
-User >> makeQuestion: title body: text topics: collectionT [ 
-	"creo una instancia de pregunta y la agrego a mis preguntas,
-	la instancia de pregunta debe tener el usuario que la hizo
-	por esa razon le paso self , y tambien una coleccion de topicos"
-	| aQuestion |
-	aQuestion := Question
-		crearPregunta: title
-		topicos: collectionT
-		desc: text
-		author: self.
-	myQuestion add: aQuestion.
-	^aQuestion.
-]
-
 { #category : #accessing }
-User >> miPuntaje [
- |punto|
-	punto:=0.
-	punto := self miPuntajeInteraccion + self miPuntajeLikes .	
-	^punto.
+User >> followers: anObject [
+	followers := anObject
+]
+
+{ #category : #'initialization - private' }
+User >> initialize:aUsername withPassword:aPassword [
+
+	self initialize.
+	username := aUsername.
+	password := aPassword .
+	creationDate := Date today.
+	creationTime := Time now.
+	questions := OrderedCollection new.
+	replies := OrderedCollection new.
+	favTopics := OrderedCollection new.
+	followers := OrderedCollection new.
 	
 ]
 
-{ #category : #accessing }
-User >> miPuntajeInteraccion [
-"cuento todas las preguntas (valen 20 puntos) y cada respuesta de otro usuario
- a esas preguntas, que valen 50"
- |punto|	
-	punto:=myAnswer sum: [:each | each puntosSinUser ].
-	punto:=punto + (myQuestion size * 20).
-	^punto.
-	
-]
-
-{ #category : #accessing }
-User >> miPuntajeLikes [
-	"cuento todos los likes en las interacciones del user"
-
-	| punto |
-	punto := 0.
-	myQuestion
-		ifNotEmpty: [ punto := punto + (myQuestion sum: [ :each | each puntaje ]) ].
-	myAnswer
-		ifNotEmpty: [ punto := punto + (myAnswer sum: [ :each | each puntaje ]) ].
-	^ punto
-]
-
-{ #category : #'accessing values' }
-User >> myAnswer [ 
-	^ myAnswer  
-]
-
-{ #category : #'accessing values' }
-User >> myQuestion [
-	^ myQuestion 
-]
-
 { #category : #'adding elements' }
-User >> myQuestions: aCollection [
-	aCollection addAll: myQuestion .
-	^aCollection.
+User >> like:aPost [
+	aPost like:true
 ]
 
-{ #category : #'accessing values' }
-User >> name [
-	^ name
-]
-
-{ #category : #initialization }
-User >> name: anObject [
-	name := anObject
-]
-
-{ #category : #'accessing values' }
+{ #category : #accessing }
 User >> password [
 	^ password
 ]
 
-{ #category : #initialization }
+{ #category : #accessing }
 User >> password: anObject [
 	password := anObject
+]
+
+{ #category : #callback }
+User >> postingScore [
+	
+	^ ((questions inject: 0 into: [ :likes :question | likes +  question likes]) + (questions inject: 0 into: [:dislikes :question | dislikes + question dislikes ])).
+]
+
+{ #category : #accessing }
+User >> questions [
+	^ questions
+]
+
+{ #category : #accessing }
+User >> questions: anObject [
+	questions := anObject
+]
+
+{ #category : #callback }
+User >> relevantQuestions [
+	^ questions collect: [:question | question relevant: self ]
+]
+
+{ #category : #'add/remove' }
+User >> removeQuestion:aQuestion [
+	questions remove: aQuestion.
+]
+
+{ #category : #callback }
+User >> replies [
+	"Returns the replies made by the user"
+	^ Reply allInstances collect: [ :aReply | aReply user username == self username ].
 ]
 
 { #category : #accessing }
@@ -178,21 +159,39 @@ User >> relevantQuestion [
 	^questions.
 ]
 
-{ #category : #remove }
-User >> removeAnswer:aAnswer [
- myAnswer remove:aAnswer.
-
+{ #category : #accessing }
+User >> replies: anObject [
+	replies := anObject
 ]
 
-{ #category : #remove }
-User >> removeQuestion:aQuestion [
-"elimina la pregunta de mi coleccion de preguntas"
- myQuestion remove: aQuestion .
+{ #category : #'adding elements' }
+User >> replyQuestion:aQuestion withText:aText [
+	|aReply|
+	aReply := Reply reply: aQuestion  withText: aText withUser: self.
+	"question := Question allInstances detect: [ :q | q title equals: aQuestion ]."
+	aQuestion addReply: aReply.
+	^ aReply.
+	
+]
 
+{ #category : #callback }
+User >> score [
+	|r|
+	"q := questions size."
+	"r := replies size."
+	"^ ((q * 20) + (r * 50))."
+	
+	r := replies size.
+	
+	^ r.
 ]
 
 { #category : #accessing }
-User >> soyYo:name2 [
-	"respondo si soy el usuario que recibo"
-	^ name=name2.
+User >> username [
+	^ username
+]
+
+{ #category : #accessing }
+User >> username: anObject [
+	username := anObject
 ]

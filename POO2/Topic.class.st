@@ -1,3 +1,6 @@
+"
+""Topic class""
+"
 Class {
 	#name : #Topic,
 	#superclass : #Object,
@@ -9,19 +12,9 @@ Class {
 	#category : #POO2
 }
 
-{ #category : #initialization }
-Topic class >> cargar: tName desc: tDesc [
-|topic|
-topic := self new.
-topic name:tName ;description: tDesc ; iniciarQuestions .
-^topic.
-
-  
-]
-
-{ #category : #'adding elements' }
-Topic >> addQuestion: aQuestion [
-	questions add: aQuestion
+{ #category : #'initialization - private' }
+Topic class >> topic:aName withDescription:aDescription [
+	^ self new initialize: aName  withDescription: aDescription.
 ]
 
 { #category : #accessing }
@@ -35,14 +28,9 @@ Topic >> description: anObject [
 ]
 
 { #category : #'initialization - private' }
-Topic >> iniciarQuestions [
-	questions:= OrderedCollection new.
-]
-
-{ #category : #'adding elements' }
-Topic >> myQuestions:aCollection [
-	aCollection addAll: questions.
-	^aCollection
+Topic >> initialize:aName withDescription:aDescription [
+	name := aName.
+	description := aDescription.
 ]
 
 { #category : #accessing }
@@ -58,18 +46,4 @@ Topic >> name: anObject [
 { #category : #accessing }
 Topic >> questions [
 	^ questions.
-]
-
-{ #category : #remove }
-Topic >> removeQuestion:aQuestion [
-"remueve la pregunta de los topicos, como es utilizado desde las preguntas , este metodo no 
- retornaria nada mas"
-	 questions remove: aQuestion .
-]
-
-{ #category : #accessing }
-Topic >> soyYo:aString [
- "devuelvo true o false si soy el topico que me llega por parametro"
-	^name=aString.
-	
 ]
