@@ -12,7 +12,7 @@ Class {
 CuOOra class >> create [ 
 |instancia|
 instancia:= self new.
-instancia iniciarTopics ;iniciarUsers.
+instancia beginTopics ;beginUsers.
 ^instancia.
 ]
 
@@ -21,31 +21,31 @@ CuOOra >> addTopics: name desc: aString [
 	"se verifica que el topico no exista ya en el sistema,si existe 
 	 no se agrega y devuelve falso , si no existe , se agrega y se 
 	 devuelve true"
-	|instancia|
+	|instance|
 	(self topicExist: name)ifTrue:[^false].
-	instancia:= Topic cargar: name desc: aString. 
-	topics add: instancia.
-	^instancia.
+	instance:= Topic create: name desc: aString. 
+	topics add: instance.
+	^instance.
 ]
 
 { #category : #'adding elements' }
 CuOOra >> addUser: name pass: key [
 "para agregar un usuario nuevo, se revisa de que no exista y si no 
   existe se agrega ,devolviendo true, si el usuario ya existe , se devuelve falso"
-|persona|
+|person|
  (self usersExist: name) ifTrue: [ ^false ].
- persona:=User cargar:name pass:key.
- users add: persona.  
- ^persona.
+ person:=User create:name pass:key.
+ users add: person.  
+ ^person.
 ]
 
 { #category : #'initialization - private' }
-CuOOra >> iniciarTopics [
+CuOOra >> beginTopics [
 topics:=OrderedCollection new.
 ]
 
 { #category : #'initialization - private' }
-CuOOra >> iniciarUsers [
+CuOOra >> beginUsers [
 users:=OrderedCollection new.
 ]
 
@@ -53,7 +53,7 @@ users:=OrderedCollection new.
 CuOOra >> topicExist:topic [
 	"Si existe el topico en el sistema devuelve true , si no existe devuelve
 	false"
- users detect: [ :each|each soyYo:topic ] ifFound:[^true].
+ users detect: [ :each|each itsMe:topic ] ifFound:[^true].
  ^false.
 ]
 
@@ -71,6 +71,6 @@ CuOOra >> users [
 CuOOra >> usersExist:name [
 	"Si existe el usuario en el sistema devuelve true , si no existe devuelve
 	false"
- users detect: [ :each|each soyYo: name ] ifFound:[^true].
+ users detect: [ :each|each itsMe: name ] ifFound:[^true].
  ^false.
 ]

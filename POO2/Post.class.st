@@ -1,74 +1,76 @@
 Class {
-	#name : #Posts,
+	#name : #Post,
 	#superclass : #Object,
 	#instVars : [
 		'creationDate',
 		'creationTime',
 		'user',
-		'interaction',
+		'interactions',
 		'textBody'
 	],
 	#category : #POO2
 }
 
 { #category : #adding }
-Posts >> addReaction:aUser like:aBoolean [
+Post >> addInteraction:aUser like:aBoolean [
 	"La idea de este metodo es que ,llege el objeto usuario, con su like
 	y primero ,se busque en las interacciones de este posteo si existe
 	una interaccion de este usuario,si existe ,se guarda en instancia 
 	y luego se remueve de la lista.Luego se crea la interaccion nueva" 
-	|ins|
+	|instance|
 	self removeLike:aUser.
-	ins:= Like register:aBoolean  from:aUser  to: self.	
-	interaction add:ins.
-	^ins.
+	instance:= Interaction interaction: aUser withLike: aBoolean.	
+	interactions add:instance.
+	^instance.
 ]
 
 { #category : #'initialization - private' }
-Posts >> crearPost:aUser text:aString [
+Post >> createPost:aUser text:aString [
 	"Prepara la instancia para su uso"
 	
 	creationDate:= Date today.
 	creationTime:= Time now.
 	user:=aUser.
 	textBody:=aString.
-	interaction:=OrderedCollection new.
+	interactions:=OrderedCollection new.
 ]
 
 { #category : #accesing }
-Posts >> creationDate [
+Post >> creationDate [
 	^creationDate
 ]
 
 { #category : #accesing }
-Posts >> creationTime [
+Post >> creationTime [
 	^creationTime
 ]
 
 { #category : #accesing }
-Posts >> interaction [
-	^interaction
-]
-
-{ #category : #accesing }
-Posts >> puntaje [
-"devuelve la suma de todos los puntajes "
- (interaction isEmpty) ifTrue: [ ^0 ] ifFalse:[^interaction sum:[:each| each point ]]. 
-
- 
+Post >> interactions [
+	^interactions
 ]
 
 { #category : #remove }
-Posts >> removeLike:aUser [
-	interaction :=interaction reject: [:each| each existeInteraccion:aUser ].
+Post >> removeLike:aUser [
+	interactions :=interactions reject: [:each| each interactionExist:aUser ].
 ]
 
 { #category : #accesing }
-Posts >> textBody [
+Post >> score [
+
+|likes dislikes|
+	likes := interactions count:[:interaction| interaction like].
+	dislikes := interactions count:[:interaction| interaction like not].
+	^(likes-dislikes).
+ 
+]
+
+{ #category : #accesing }
+Post >> textBody [
 	^textBody
 ]
 
 { #category : #accesing }
-Posts >> user [ 
+Post >> user [ 
 	^user
 ]

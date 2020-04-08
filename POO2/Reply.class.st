@@ -1,6 +1,6 @@
 Class {
-	#name : #Answer,
-	#superclass : #Posts,
+	#name : #Reply,
+	#superclass : #Post,
 	#instVars : [
 		'question'
 	],
@@ -8,46 +8,46 @@ Class {
 }
 
 { #category : #'initialization - private' }
-Answer class >> crearRespuesta: aUser text: aString question: aQuestion [
+Reply class >> create: aUser text: aString question: aQuestion [
 	| instancia |
 	instancia := self new.
-	instancia crearRespuesta: aUser text: aString question: aQuestion.
+	instancia create: aUser text: aString question: aQuestion.
 	^instancia.
 ]
 
 { #category : #'adding elements' }
-Answer >> crearRespuesta: aUser text: aString question: aQuestion [
-	self crearPost: aUser text: aString.
+Reply >> create: aUser text: aString question: aQuestion [
+	self createPost: aUser text: aString.
 	question := aQuestion.
-	aQuestion addAnswer: self.
+	aQuestion addReply: self.
 ]
 
 { #category : #accesing }
-Answer >> puntosSinUser [
+Reply >> pointsWithoutUser [
 "pregunto si el user que creo la respuesta coincide con el user creador de la pregunta y 
 	si lo hacen , devuelvo 0 ,sino 50"
 	(question imFromUser: user) ifTrue:[^0] ifFalse:[^50]. 
 ]
 
 { #category : #accesing }
-Answer >> question [
+Reply >> question [
 	^question.
 ]
 
 { #category : #remove }
-Answer >> removeFromQuestion [
+Reply >> removeFromQuestion [
  question removeAnswer: self.
  
 ]
 
 { #category : #remove }
-Answer >> removeFromUser [
-	user removeAnswer:self.
+Reply >> removeFromUser [
+	user removeReply:self.
  
 ]
 
 { #category : #remove }
-Answer >> removeMe [ 
+Reply >> removeMe [ 
 	self removeFromUser.
  
 ]
