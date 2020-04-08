@@ -190,6 +190,15 @@ User >> replies [
 ]
 
 { #category : #'adding elements' }
+User >> replyQuestion: aQuestion WithText: aText [
+
+	| aReply |
+	aReply  := Reply create: self withText: aText question: aQuestion.
+	replies add: aReply.
+	^aReply.
+]
+
+{ #category : #'adding elements' }
 User >> replyQuestion: aQuestion text: text [
 	"creo una instancia de respuesta y la cargo a mis respuestas"
 
