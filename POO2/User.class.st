@@ -159,6 +159,7 @@ User >> replyQuestion:aQuestion withText:aText [
 	aReply := Reply reply: aQuestion  withText: aText withUser: self.
 	"question := Question allInstances detect: [ :q | q title equals: aQuestion ]."
 	aQuestion addReply: aReply.
+	replies add: aReply.
 	^ aReply.
 	
 ]
