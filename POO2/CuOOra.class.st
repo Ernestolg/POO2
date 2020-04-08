@@ -28,16 +28,6 @@ CuOOra >> addUser: aUsername withPassword: aPassword [
 	users add: aUser.
 ]
 
-{ #category : #'initialization - private' }
-CuOOra >> iniciarTopics [
-topics:=OrderedCollection new.
-]
-
-{ #category : #'initialization - private' }
-CuOOra >> iniciarUsers [
-users:=OrderedCollection new.
-]
-
 { #category : #acccessing }
 CuOOra >> topicExist:aTopicName [
  topics detect: [ :topic| topic name == aTopicName ] ifFound:[^true].
