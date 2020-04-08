@@ -29,6 +29,12 @@ Post >> addInteraction:aUser like:aBoolean [
 	^instance.
 ]
 
+{ #category : #adding }
+Post >> alreadyLiked:aUser [
+	^ interactions includes: [ :interaction | interaction user = aUser & interaction like]
+
+]
+
 { #category : #accesing }
 Post >> creationDate [
 	^creationDate
@@ -37,6 +43,20 @@ Post >> creationDate [
 { #category : #accesing }
 Post >> creationTime [
 	^creationTime
+]
+
+{ #category : #adding }
+Post >> dislike:aUser [
+	|anInteraction|
+	anInteraction := Interaction create: aUser withLike: false.
+	interactions add: anInteraction.
+
+]
+
+{ #category : #adding }
+Post >> dislikes [
+	^ (interactions reject: [ :i | i like ]) size.
+
 ]
 
 { #category : #'initialization - private' }
@@ -53,6 +73,26 @@ Post >> initialize:aUser withText:aText [
 { #category : #accesing }
 Post >> interactions [
 	^interactions
+]
+
+{ #category : #adding }
+Post >> like:anUser [
+	|anInteraction|
+	anInteraction := Interaction create: anUser withLike: true.
+	interactions add: anInteraction.
+
+]
+
+{ #category : #adding }
+Post >> likes [
+	^ (interactions select: [ :i | i like ]) size.
+
+]
+
+{ #category : #adding }
+Post >> removeInteraction:aUser [
+	interactions := interactions reject: [ :interaction | interaction user = aUser ].
+
 ]
 
 { #category : #remove }
