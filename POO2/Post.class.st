@@ -11,6 +11,11 @@ Class {
 	#category : #POO2
 }
 
+{ #category : #intialization }
+Post class >> create:aUser withText:aText [
+	^ self new initialize: aUser withText: aText.
+]
+
 { #category : #adding }
 Post >> addInteraction:aUser like:aBoolean [
 	"La idea de este metodo es que ,llege el objeto usuario, con su like
@@ -24,17 +29,6 @@ Post >> addInteraction:aUser like:aBoolean [
 	^instance.
 ]
 
-{ #category : #'initialization - private' }
-Post >> createPost:aUser text:aString [
-	"Prepara la instancia para su uso"
-	
-	creationDate:= Date today.
-	creationTime:= Time now.
-	user:=aUser.
-	text:=aString.
-	interactions:=OrderedCollection new.
-]
-
 { #category : #accesing }
 Post >> creationDate [
 	^creationDate
@@ -43,6 +37,17 @@ Post >> creationDate [
 { #category : #accesing }
 Post >> creationTime [
 	^creationTime
+]
+
+{ #category : #'initialization - private' }
+Post >> initialize:aUser withText:aText [
+	"Prepara la instancia para su uso"
+	
+	creationDate:= Date today.
+	creationTime:= Time now.
+	user:=aUser.
+	text:=aText.
+	interactions:=OrderedCollection new.
 ]
 
 { #category : #accesing }
