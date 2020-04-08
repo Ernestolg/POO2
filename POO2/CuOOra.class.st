@@ -23,14 +23,12 @@ CuOOra >> addTopic: name withDescription: aDescription [
 ]
 
 { #category : #'adding elements' }
-CuOOra >> addUser: name pass: key [
-"para agregar un usuario nuevo, se revisa de que no exista y si no 
-  existe se agrega ,devolviendo true, si el usuario ya existe , se devuelve falso"
-|person|
- (self usersExist: name) ifTrue: [ ^false ].
- person:=User create:name withPassword:key.
- users add: person.  
- ^person.
+CuOOra >> addUser: anUsername withPassword: aPassword [
+|anUser|
+ (self usersExist: anUsername) ifTrue: [ ^false ].
+ anUser := User create: anUsername withPassword: aPassword.
+ users add: anUser.  
+ ^anUser.
 ]
 
 { #category : #'initialization - private' }
