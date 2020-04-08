@@ -9,11 +9,8 @@ Class {
 }
 
 { #category : #initialization }
-CuOOra class >> create [ 
-|instancia|
-instancia:= self new.
-instancia iniciarTopics ;iniciarUsers.
-^instancia.
+CuOOra class >> cuoora [
+	^ self new initialize.
 ]
 
 { #category : #'adding elements' }
