@@ -39,7 +39,6 @@ User class >> create:aUsername withPassword:aPassword [
 
 { #category : #'adding elements' }
 User >> addFavTopic:topic [
-	"agrego mi topico favorito,que llega por parametro"
 	favTopics add: topic.
  
 ]
