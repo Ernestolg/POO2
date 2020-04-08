@@ -31,8 +31,9 @@ Reply class >> create: aUser text: aString question: aQuestion [
 ]
 
 { #category : #'adding elements' }
-Reply >> create: aUser text: aString question: aQuestion [
-	self createPost: aUser text: aString.
+Reply >> initialize: anUser withText: aText question: aQuestion [
+	user := anUser.
+	text := aText.
 	question := aQuestion.
 	aQuestion addReply: self.
 ]
