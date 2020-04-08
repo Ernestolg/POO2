@@ -11,7 +11,7 @@ Class {
 }
 
 { #category : #'initialization - private' }
-Interaction class >> interaction:aUser withLike:aLike [
+Interaction class >> create:aUser withLike:aLike [
 	^self new initialize:aUser withLike:aLike.
 ]
 
