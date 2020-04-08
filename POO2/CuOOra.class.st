@@ -39,11 +39,8 @@ CuOOra >> initialize [
 ]
 
 { #category : #acccessing }
-CuOOra >> topicExist:topic [
-	"Si existe el topico en el sistema devuelve true , si no existe devuelve
-	false"
- users detect: [ :each|each itsMe:topic ] ifFound:[^true].
- ^false.
+CuOOra >> topicExist:aTopicName [
+	^ users includes: [ :user | user itsMyTopic: aTopicName ].
 ]
 
 { #category : #acccessing }
