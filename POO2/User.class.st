@@ -109,8 +109,8 @@ User >> interactionScoring [
 	"It retrives the difference between likes and dislikes of user posts (questions or replies)"
 	| questionReactionScore replyReactionScore |
 	
-	questionReactionScore := questions inject: 0 into: [ :question | question score ].
-	replyReactionScore := replies inject: 0 into: [ :reply | reply score ].  
+	questionReactionScore := questions inject: 0 into: [:total :question | total + question score ].
+	replyReactionScore := replies inject: 0 into: [:total :reply | total + reply score ].  
 	
 	^ (questionReactionScore + replyReactionScore ).
 ]
@@ -242,9 +242,7 @@ User >> replyScoring [
 
 { #category : #callback }
 User >> score [ 
- |score|
-	score:=0.
-	score := self postScoring + self interactionScoring  .	
-	^score.
+	
+	^ (self postScoring  + self interactionScoring)
 	
 ]
