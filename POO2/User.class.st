@@ -176,19 +176,8 @@ User >> questions [
 ]
 
 { #category : #callback }
-User >> relevantQuestion [
-"en una coleccion auxiliar recolecto todaslas preguntas de los topicos favoritos
- y de los usuarios que sigo y  la devuelvo"
-|questionsSet|
-	questionsSet:=Set new.
-	favTopics ifNotEmpty:[ favTopics do: [:each| each myQuestions:questionsSet]].
-	followers ifNotEmpty: [ followers do: [ :each| each myQuestions: questionsSet ]].	
-	^questionsSet.
-]
-
-{ #category : #callback }
-User >> relevantQuestion:anUser [
-	questions ifNotEmpty: [ questions select: [ :question | question relevant: anUser ] ]
+User >> relevantQuestions [
+	^ questions ifNotEmpty: [ questions select: [ :question | question relevant: self ] ]
 ]
 
 { #category : #remove }
@@ -213,16 +202,6 @@ User >> removeReply:aReply [
 { #category : #'accessing values' }
 User >> replies [
 	^ replies  
-]
-
-{ #category : #'adding elements' }
-User >> replyQuestion: aQuestion text: text [
-	"creo una instancia de respuesta y la cargo a mis respuestas"
-
-	| answer |
-	answer := Reply create: self text: text question: aQuestion.
-	replies add: answer.
-	^answer.
 ]
 
 { #category : #'adding elements' }
