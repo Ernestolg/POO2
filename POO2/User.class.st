@@ -51,7 +51,7 @@ User >> addFollower: anUser [
 { #category : #'adding elements' }
 User >> askQuestion: title withText:aText withTopics: aTopicsCollection [
 	| aQuestion |
-	aQuestion := Question create: title withTopics: aTopicsCollection withDescription: aText withAuthor: self.
+	aQuestion := Question create: title withTopics: aTopicsCollection withText: aText withAuthor: self.
 	questions add: aQuestion.
 	^aQuestion.
 ]
@@ -206,15 +206,6 @@ User >> replies [
 ]
 
 { #category : #'adding elements' }
-User >> replyQuestion: aQuestion WithText: aText [
-
-	| aReply |
-	aReply  := Reply create: self withText: aText question: aQuestion.
-	replies add: aReply.
-	^aReply.
-]
-
-{ #category : #'adding elements' }
 User >> replyQuestion: aQuestion text: text [
 	"creo una instancia de respuesta y la cargo a mis respuestas"
 
@@ -222,6 +213,15 @@ User >> replyQuestion: aQuestion text: text [
 	answer := Reply create: self text: text question: aQuestion.
 	replies add: answer.
 	^answer.
+]
+
+{ #category : #'adding elements' }
+User >> replyQuestion: aQuestion withText: aText [
+
+	| aReply |
+	aReply  := Reply create: self withText: aText withQuestion: aQuestion.
+	replies add: aReply.
+	^aReply.
 ]
 
 { #category : #callback }
