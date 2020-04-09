@@ -107,15 +107,6 @@ User >> itsMyUser:aUser [
 ]
 
 { #category : #callback }
-User >> myScore [ 
- |score|
-	score:=0.
-	score := self myScoreInteraction + self myScoreLikes  .	
-	^score.
-	
-]
-
-{ #category : #callback }
 User >> myScoreInteraction [
 	"cuento todas las preguntas (valen 20 puntos) y cada respuesta de otro usuario
  a esas preguntas, que valen 50"
@@ -206,4 +197,13 @@ User >> replyQuestion: aQuestion text: text [
 	answer := Reply create: self text: text question: aQuestion.
 	replies add: answer.
 	^answer.
+]
+
+{ #category : #callback }
+User >> score [ 
+ |score|
+	score:=0.
+	score := self postScoring + self interactionScoring  .	
+	^score.
+	
 ]
