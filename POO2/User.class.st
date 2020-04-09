@@ -66,6 +66,11 @@ User >> creationTime [
 	^ creationTime
 ]
 
+{ #category : #callback }
+User >> dislike: aPost [
+	aPost dislike: self
+]
+
 { #category : #'accessing values' }
 User >> favTopics [
 	^favTopics.
@@ -136,6 +141,11 @@ User >> itsMyTopic: aTopicName [
 User >> itsMyUser:aUser [
 	"respondo si soy el usuario que recibo"
 	^ (aUser itsMe:name).
+]
+
+{ #category : #callback }
+User >> like: aPost [
+	aPost like: self.
 ]
 
 { #category : #'accessing values' }
