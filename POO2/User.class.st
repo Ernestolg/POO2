@@ -44,6 +44,11 @@ User >> addFavTopic:topic [
 ]
 
 { #category : #'adding elements' }
+User >> addFollower: anUser [
+	followers add: anUser.
+]
+
+{ #category : #'adding elements' }
 User >> askQuestion: title withText:aText withTopics: aTopicsCollection [
 	| aQuestion |
 	aQuestion := Question create: title withTopics: aTopicsCollection withDescription: aText withAuthor: self.
@@ -68,7 +73,7 @@ User >> favTopics [
 
 { #category : #'adding elements' }
 User >> follow:anUser [
- anUser follow: self.
+ anUser addFollower: self.
 ]
 
 { #category : #'accessing values' }
