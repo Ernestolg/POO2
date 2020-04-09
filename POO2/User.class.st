@@ -101,6 +101,12 @@ User >> interactionScoring [
 ]
 
 { #category : #callback }
+User >> isFavoriteTopic: aTopicsCollection [
+
+	^ (aTopicsCollection anySatisfy: [ :topic | favTopics includes: [ :favTopic | favTopic name == topic name ] ]).
+]
+
+{ #category : #callback }
 User >> itsMe:name2 [
 	"respondo si soy el usuario que recibo"
 	^ name=name2.
