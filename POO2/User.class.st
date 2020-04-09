@@ -140,6 +140,12 @@ User >> password [
 	^ password
 ]
 
+{ #category : #callback }
+User >> questionScoring [
+
+	^ (questions size) * 20.
+]
+
 { #category : #'accessing values' }
 User >> questions [
 	^ questions
@@ -197,6 +203,12 @@ User >> replyQuestion: aQuestion text: text [
 	answer := Reply create: self text: text question: aQuestion.
 	replies add: answer.
 	^answer.
+]
+
+{ #category : #callback }
+User >> replyScoring [
+
+	^ (replies size) * 50.
 ]
 
 { #category : #callback }
