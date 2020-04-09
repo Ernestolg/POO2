@@ -36,20 +36,6 @@ Question >> addReply:aReply [
 	replies add:aReply.
 ]
 
-{ #category : #'initialization - private' }
-Question >> create:aStringT topics:collectionT desc:aStringD author:aUser [
- "crea una instancia de pregunta , primero manda un mensaje a self
- para utilizar el metodo definido en la clase padre Posts y luego inicializa
- las variables propias de una pregunta.La ultima linea se encarga de
- mandar la pregunta a todos los topicos que se le enviaron"
- self createPost:aUser  text:aStringD.
- title:=aStringT.
- topics:=collectionT.
- replies :=OrderedCollection new.
- self imFromTopics: collectionT.
-  
-]
-
 { #category : #accesing }
 Question >> imFromTopics:collectionT [
  "aqui se recibe una coleccion de topicos, los cuales se iteran para que 
@@ -60,6 +46,16 @@ Question >> imFromTopics:collectionT [
 { #category : #accesing }
 Question >> imFromUser:anUser [
 	^(user itsMyUser: anUser).
+]
+
+{ #category : #'initialization - private' }
+Question >> initialize:aTitle withTopics:aTopicsCollection withText:aText withAuthor:anUser [
+	title := aTitle.
+	user := anUser.
+	text := aText.
+	topics := aTopicsCollection.
+	replies := OrderedCollection new.
+  
 ]
 
 { #category : #accesing }
