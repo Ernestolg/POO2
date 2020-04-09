@@ -161,6 +161,11 @@ User >> relevantQuestion [
 	^questionsSet.
 ]
 
+{ #category : #callback }
+User >> relevantQuestion:anUser [
+	questions ifNotEmpty: [ questions select: [ :question | question relevant: anUser ] ]
+]
+
 { #category : #remove }
 User >> removeQuestion:aQuestion [
 	questions detect: [ :question | question text == aQuestion text ] 
