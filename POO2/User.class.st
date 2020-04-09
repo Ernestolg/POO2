@@ -90,6 +90,17 @@ favTopics := OrderedCollection new.
 ]
 
 { #category : #callback }
+User >> interactionScoring [
+	"It retrives the difference between likes and dislikes of user posts (questions or replies)"
+	| questionReactionScore replyReactionScore |
+	
+	questionReactionScore := questions inject: 0 into: [ :question | question score ].
+	replyReactionScore := replies inject: 0 into: [ :reply | reply score ].  
+	
+	^ (questionReactionScore + replyReactionScore ).
+]
+
+{ #category : #callback }
 User >> itsMe:name2 [
 	"respondo si soy el usuario que recibo"
 	^ name=name2.
@@ -115,19 +126,6 @@ User >> myScoreInteraction [
 	scoreAux :=  (questions size *20).
 	replies isNotEmpty ifTrue: [ scoreAux:= scoreAux + (replies sum:[:each|each pointsWithoutUser]) ].
 	^scoreAux 
-]
-
-{ #category : #callback }
-User >> myScoreLikes [
-	"cuento todos los likes en las interacciones del user"
-
-	| scoreAux |
-	scoreAux := 0.
-	questions
-		ifNotEmpty: [ scoreAux := scoreAux + (questions sum: [ :each | each score ]) ].
-	replies
-		ifNotEmpty: [ scoreAux := scoreAux  + (replies sum: [ :each | each score ]) ].
-	^ scoreAux 
 ]
 
 { #category : #'accessing values' }
