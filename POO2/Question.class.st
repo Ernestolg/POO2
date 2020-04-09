@@ -71,6 +71,13 @@ Question >> myRepliesSorted [
 	^ coleccion.
 ]
 
+{ #category : #callback }
+Question >> relevant: anUser [
+	"A question is relevant when: its writer is a follower of user or its topic 
+	matches with a user favorite topic"
+	^ (anUser isFollower: user) | (anUser isFavoriteTopic: topics).
+]
+
 { #category : #remove }
 Question >> removeFromTopic [
 	topics do:[:each| each removeQuestion:self].
