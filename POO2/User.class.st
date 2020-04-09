@@ -76,6 +76,11 @@ User >> followers [
 	^ followers
 ]
 
+{ #category : #callback }
+User >> followingUser:anUser [ 
+	^ followers anySatisfy: [ :user | user username == anUser username ].
+]
+
 { #category : #initialization }
 User >> initialize:nameUser withPassword:passUser [
 
@@ -104,6 +109,11 @@ User >> interactionScoring [
 User >> isFavoriteTopic: aTopicsCollection [
 
 	^ (aTopicsCollection anySatisfy: [ :topic | favTopics includes: [ :favTopic | favTopic name == topic name ] ]).
+]
+
+{ #category : #callback }
+User >> isFollower: anUser [
+	^ (followers anySatisfy: [:follower | follower username == anUser username]).
 ]
 
 { #category : #callback }
