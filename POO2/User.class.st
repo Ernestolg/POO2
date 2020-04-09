@@ -117,17 +117,6 @@ User >> itsMyUser:aUser [
 	^ (aUser itsMe:name).
 ]
 
-{ #category : #callback }
-User >> myScoreInteraction [
-	"cuento todas las preguntas (valen 20 puntos) y cada respuesta de otro usuario
- a esas preguntas, que valen 50"
-
-	| scoreAux |
-	scoreAux :=  (questions size *20).
-	replies isNotEmpty ifTrue: [ scoreAux:= scoreAux + (replies sum:[:each|each pointsWithoutUser]) ].
-	^scoreAux 
-]
-
 { #category : #'accessing values' }
 User >> name [
 	^ name
@@ -136,6 +125,12 @@ User >> name [
 { #category : #'accessing values' }
 User >> password [
 	^ password
+]
+
+{ #category : #callback }
+User >> postScoring [
+
+	^ (self replyScoring + self questionScoring).
 ]
 
 { #category : #callback }
