@@ -123,7 +123,7 @@ User >> isFavoriteTopic: aTopicsCollection [
 
 { #category : #callback }
 User >> isFollower: anUser [
-	^ (followers anySatisfy: [:follower | follower username == anUser username]).
+	^ (followers anySatisfy: [:follower | follower name == anUser name]).
 ]
 
 { #category : #callback }
