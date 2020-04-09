@@ -116,12 +116,7 @@ Post >> removeLike:aUser [
 
 { #category : #accesing }
 Post >> score [
-|likes dislikes|
-	
-	likes := interactions inject: 0 into: [ :interaction | interaction like ].
-	dislikes := interactions inject: 0 into: [ :interaction | interaction like not ].
-	
-	^(likes-dislikes).
+	^(self likes - self dislikes).
  
 ]
 
