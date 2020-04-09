@@ -68,7 +68,7 @@ User >> favTopics [
 
 { #category : #'adding elements' }
 User >> follow:anUser [
- followers add:anUser.
+ anUser follow: self.
 ]
 
 { #category : #'accessing values' }
