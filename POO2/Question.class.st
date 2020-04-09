@@ -25,9 +25,9 @@ Class {
 }
 
 { #category : #'initialization - private' }
-Question class >> create:aTitle withTopics: aTopicsCollection withDescription: aDescription withAuthor: anUser [
+Question class >> create:aTitle withTopics: aTopicsCollection withText: aText withAuthor: anUser [
 	| instance |
-	instance := self new initialize:aTitle withTopics: aTopicsCollection withDescription: aDescription withAuthor: anUser.
+	instance := self new initialize:aTitle withTopics: aTopicsCollection withText: aText withAuthor: anUser.
 	^instance.
 ]
 
