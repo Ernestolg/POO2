@@ -50,9 +50,8 @@ Question >> imFromUser:anUser [
 
 { #category : #'initialization - private' }
 Question >> initialize:aTitle withTopics:aTopicsCollection withText:aText withAuthor:anUser [
+	self initialize:anUser  withText:aText. 
 	title := aTitle.
-	user := anUser.
-	text := aText.
 	topics := aTopicsCollection.
 	replies := OrderedCollection new.
   
