@@ -73,6 +73,18 @@ UserSetTest >> testUserRelevantQuestions [
 ]
 
 { #category : #tests }
+UserSetTest >> testUserRemoveQuestion [
+
+	topicsCollection := OrderedCollection new.
+	aTopic := Topic create: 'Software Enginnering' withDescription: 'Agile methods and more stuff'.
+	topicsCollection add: aTopic.
+	
+	aQuestion := testedUser askQuestion: 'Information about Agile'  withText: 'Books about Agile' withTopics: topicsCollection.
+	 
+	testedUser2 replyQuestion: aQuestion WithText: 'Read this book'. 
+]
+
+{ #category : #tests }
 UserSetTest >> testUserReplies [
 	self assert:(testedUser2 replies size) identicalTo:1.
 ]
