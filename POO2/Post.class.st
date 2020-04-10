@@ -37,8 +37,8 @@ Post >> addInteraction:aUser like:aBoolean [
 	una interaccion de este usuario,si existe ,se guarda en instancia 
 	y luego se remueve de la lista.Luego se crea la interaccion nueva" 
 	|instance|
-	self removeLike:aUser.
-	instance:= Interaction interaction: aUser withLike: aBoolean.	
+	self removeInteraction:aUser.
+	instance:= Interaction create: aUser withLike: aBoolean.	
 	interactions add:instance.
 	^instance.
 ]
@@ -107,11 +107,6 @@ Post >> likes [
 Post >> removeInteraction:aUser [
 	interactions := interactions reject: [ :interaction | interaction user = aUser ].
 
-]
-
-{ #category : #remove }
-Post >> removeLike:aUser [
-	interactions :=interactions reject: [:each| each interactionExist:aUser ].
 ]
 
 { #category : #accesing }

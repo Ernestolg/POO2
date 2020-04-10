@@ -49,6 +49,13 @@ User >> addFollower: anUser [
 ]
 
 { #category : #'adding elements' }
+User >> addRelevant:aSet [
+
+aSet addAll: self questions.
+^aSet.
+]
+
+{ #category : #'adding elements' }
 User >> askQuestion: title withText:aText withTopics: aTopicsCollection [
 	| aQuestion |
 	aQuestion := Question create: title withTopics: aTopicsCollection withText: aText withAuthor: self.
@@ -78,7 +85,7 @@ User >> favTopics [
 
 { #category : #'adding elements' }
 User >> follow:anUser [
- anUser addFollower: self.
+ followers add: anUser.
 ]
 
 { #category : #'accessing values' }
@@ -177,7 +184,11 @@ User >> questions [
 
 { #category : #callback }
 User >> relevantQuestions [
-	^ questions ifNotEmpty: [ questions select: [ :question | question relevant: self ] ]
+	|questionsSet|
+	questionsSet:=Set new.
+	favTopics ifNotEmpty:[ favTopics do: [:each| each addRelevant:questionsSet]].
+	followers ifNotEmpty: [ followers do: [ :each| each addRelevant: questionsSet ]].	
+	^questionsSet.
 ]
 
 { #category : #remove }

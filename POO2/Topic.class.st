@@ -29,6 +29,12 @@ Topic class >> create: tName withDescription: tDesc [
   
 ]
 
+{ #category : #'adding elements' }
+Topic >> addRelevant:aSet [
+aSet addAll: self questions.
+^aSet.
+]
+
 { #category : #accessing }
 Topic >> description [
 	^ description.

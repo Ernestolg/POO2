@@ -39,11 +39,9 @@ Reply class >> create: anUser withText: aText withQuestion: aQuestion [
 
 { #category : #'adding elements' }
 Reply >> initialize: anUser withText: aText withQuestion: aQuestion [
-	user := anUser.
-	text := aText.
+	self initialize: aText withText:anUser. 
 	question := aQuestion.
 	aQuestion addReply: self.
-	interactions := OrderedCollection new.
 ]
 
 { #category : #accesing }
