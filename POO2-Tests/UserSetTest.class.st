@@ -68,6 +68,42 @@ UserSetTest >> testUserQuestions [
 ]
 
 { #category : #tests }
+UserSetTest >> testUserReactions [
+
+	aTopic := Topic create: 'General' withDescription: 'General Topic'.
+	topicsCollection := OrderedCollection new.
+	topicsCollection add: aTopic.
+	aQuestion := testedUser askQuestion: 'Which is the best strategy?' withText:'I need to manage this project' withTopics: topicsCollection.
+	
+	testedUser2 like: aQuestion.
+	testedUser3 like: aQuestion.
+	
+	aReply := testedUser2 replyQuestion: aQuestion withText: 'I think this strategy is better'.
+	testedUser like: aReply.
+	
+	aReply := testedUser3 replyQuestion: aQuestion withText: 'In my case, I think is this one.'.
+	testedUser like: aReply.
+	testedUser like: aReply.
+	testedUser like: aReply.
+	testedUser2 like: aReply.
+	
+	self deny: (aReply likes) identicalTo: 4.
+	self assert: (aReply likes) identicalTo: 2.
+	
+	aReply := testedUser replyQuestion: aQuestion  withText: 'Great. Thanks guys'.
+	testedUser3 like: aReply.
+	testedUser2 like: aReply.
+	
+	aReply := testedUser2 replyQuestion: aQuestion withText: 'Nice :D Check both'.
+	aReply := testedUser3 replyQuestion: aQuestion withText: 'Cool'.
+	testedUser like: aReply.
+	
+	self assert: (aQuestion likes ) identicalTo: 2.
+
+
+]
+
+{ #category : #tests }
 UserSetTest >> testUserRelevantQuestions [
 	self assert: testedUser relevantQuestions size identicalTo: 0.
 	self assert: testedUser2 relevantQuestions size identicalTo: 0.
