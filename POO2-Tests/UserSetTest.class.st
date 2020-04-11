@@ -58,49 +58,6 @@ UserSetTest >> setUp [
 ]
 
 { #category : #'setUp-tearDown' }
-UserSetTest >> setUpInteractions [
-	testedUser like: aReply.
-	testedUser3 dislike: aReply
-
-	
-]
-
-{ #category : #'setUp-tearDown' }
-UserSetTest >> setUpQuestions [
-	topicsCollection add: topicsCollection first.
-   aQuestion :=testedUser
-		askQuestion: 'What I need to write some tests?'
-		withText: 'I need help. IDK how to start'
-		withTopics: topicsCollection.
-]
-
-{ #category : #'setUp-tearDown' }
-UserSetTest >> setUpReplies [
-		aReply := testedUser2
-		replyQuestion: aQuestion
-		withText: 'You have 2 read the documentation.'.
-
-	
-]
-
-{ #category : #'setUp-tearDown' }
-UserSetTest >> setUpTopics [
-	topicsCollection := OrderedCollection new.
-	topicsCollection
-		add: (Topic create: 'Help' withDescription: 'General Topic').
-]
-
-{ #category : #'setUp-tearDown' }
-UserSetTest >> setUpUser [
-	testedUser := User create: 'Testing' withPassword: 'pass'.
-	testedUser2 := User create: 'Testing2' withPassword: 'pass'.
-	testedUser3 := User create: 'Testing3' withPassword: 'pass'.
-	testedUser follow:testedUser2.
-	testedUser2 follow:testedUser3.
-	testedUser3 follow:testedUser.
-]
-
-{ #category : #'setUp-tearDown' }
 UserSetTest >> tearDown [ 
 	testedUser := nil.
 	testedUser2 := nil.
