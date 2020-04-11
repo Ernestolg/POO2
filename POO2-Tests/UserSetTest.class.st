@@ -59,11 +59,6 @@ UserSetTest >> setUp [
 
 { #category : #'setUp-tearDown' }
 UserSetTest >> tearDown [ 
-	testedUser := nil.
-	testedUser2 := nil.
-	testedUser3 := nil.
-	aReply := nil.
-	aQuestion := nil.
 	super tearDown.
 ]
 
