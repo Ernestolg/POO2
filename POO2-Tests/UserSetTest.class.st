@@ -46,11 +46,9 @@ UserSetTest >> addTopics [
 UserSetTest >> setUp [
 	"Hooks that subclasses may override to define the fixture of test."
 	super setUp.
-	self setUpUser.
-	self setUpTopics.
-	self setUpQuestions.
-	self setUpReplies .
-	self setUpInteractions .
+	testedUser := User create: 'Testing' withPassword: 'pass'.
+	testedUser2 := User create: 'Testing2' withPassword: 'pass'.
+	testedUser3 := User create: 'Testing3' withPassword: 'pass'.
 
 	
 	
