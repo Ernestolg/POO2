@@ -62,9 +62,23 @@ UserSetTest >> tearDown [
 
 { #category : #tests }
 UserSetTest >> testUserQuestions [
-	self assert: testedUser questions size equals: 1.
-	self assert: testedUser2 questions size equals: 0.
-	self assert: testedUser3 questions size equals: 0.
+
+	aTopic := Topic create: 'General' withDescription: 'General Topic'.
+	topicsCollection := OrderedCollection new.
+	topicsCollection add: aTopic.
+	aQuestion := testedUser askQuestion: 'Which is the best strategy?' withText:'I need to manage this project' withTopics: topicsCollection.
+	
+	aReply := testedUser2 replyQuestion: aQuestion withText: 'I think this strategy is better'.
+	aReply := testedUser3 replyQuestion: aQuestion withText: 'In my case, I think is this one.'.
+	aReply := testedUser replyQuestion: aQuestion  withText: 'Great. Thanks guys'.
+	aReply := testedUser2 replyQuestion: aQuestion withText: 'Nice :D Check both'.
+	aReply := testedUser3 replyQuestion: aQuestion withText: 'Cool'.
+	
+	self assert: (testedUser questions size) identicalTo: 1.
+	self assert: (testedUser replies size) identicalTo: 1.
+	self assert: (testedUser2 replies size) identicalTo:2.
+	self assert: (testedUser3 replies size) identicalTo:2.
+
 ]
 
 { #category : #tests }
@@ -121,14 +135,31 @@ UserSetTest >> testUserRelevantQuestions [
 
 { #category : #tests }
 UserSetTest >> testUserRemoveQuestion [
-
+	
 	topicsCollection := OrderedCollection new.
 	aTopic := Topic create: 'Software Enginnering' withDescription: 'Agile methods and more stuff'.
 	topicsCollection add: aTopic.
 	
 	aQuestion := testedUser askQuestion: 'Information about Agile'  withText: 'Books about Agile' withTopics: topicsCollection.
 	 
-	testedUser2 replyQuestion: aQuestion WithText: 'Read this book'. 
+	aReply := testedUser2 replyQuestion: aQuestion withText: 'Read this book: https://samplebook.com/agile.pdf'.
+	
+	aReply := testedUser3 replyQuestion: aQuestion  withText: 'I just found this link: https://othersample.com/se/agile_coaching.pdf'.
+	
+	aReply := testedUser3 replyQuestion: aQuestion withText: 'Also. I have this one: https://samples.com/software_enginnering/agile.pdf'.
+	
+	aReply := testedUser replyQuestion: aQuestion withText: 'Thanks guys!'.
+	
+	self assert: (testedUser questions size) identicalTo: 1.
+	self assert: (testedUser replies size) identicalTo:1.
+	
+	
+	testedUser removeQuestion: aQuestion.
+	
+	self  assert: (testedUser questions size) identicalTo: 0.
+	self assert: (testedUser replies size) identicalTo: 0.
+	
+	
 ]
 
 { #category : #tests }
