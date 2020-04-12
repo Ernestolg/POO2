@@ -65,11 +65,12 @@ Post >> creationTime [
 ]
 
 { #category : #adding }
-Post >> dislike:aUser [
-	|anInteraction|
+Post >> dislike: aUser [
+	| anInteraction |
+	(self alreadyReacted: aUser)
+		ifTrue: [ self removeInteraction: aUser].
 	anInteraction := Interaction create: aUser withLike: false.
-	interactions add: anInteraction.
-
+	interactions add: anInteraction
 ]
 
 { #category : #adding }
@@ -86,7 +87,7 @@ Post >> initialize:aUser withText:aText [
 	creationTime:= Time now.
 	user:=aUser.
 	text:=aText.
-	interactions:=OrderedCollection new.
+	interactions:= OrderedCollection new.
 ]
 
 { #category : #accesing }
@@ -95,11 +96,12 @@ Post >> interactions [
 ]
 
 { #category : #adding }
-Post >> like:anUser [
-	|anInteraction|
+Post >> like: anUser [
+	| anInteraction |
+	(self alreadyReacted: anUser)
+		ifTrue: [ self removeInteraction: anUser ].
 	anInteraction := Interaction create: anUser withLike: true.
-	interactions add: anInteraction.
-
+	interactions add: anInteraction
 ]
 
 { #category : #adding }
