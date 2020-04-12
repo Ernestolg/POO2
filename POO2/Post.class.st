@@ -49,6 +49,11 @@ Post >> alreadyLiked:aUser [
 
 ]
 
+{ #category : #callback }
+Post >> alreadyReacted: anUser [
+	^ interactions anySatisfy: [ :interaction | interaction user name == anUser name ].
+]
+
 { #category : #accesing }
 Post >> creationDate [
 	^creationDate
