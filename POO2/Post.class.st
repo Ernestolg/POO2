@@ -45,7 +45,7 @@ Post >> addInteraction:aUser like:aBoolean [
 
 { #category : #adding }
 Post >> alreadyLiked:aUser [
-	^ interactions includes: [ :interaction | interaction user = aUser & interaction like]
+	^ interactions anySatisfy: [ :interaction | interaction user name ==  aUser name & (interaction like)]
 
 ]
 
