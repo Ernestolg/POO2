@@ -49,6 +49,10 @@ UserSetTest >> setUp [
 	testedUser := User create: 'Testing' withPassword: 'pass'.
 	testedUser2 := User create: 'Testing2' withPassword: 'pass'.
 	testedUser3 := User create: 'Testing3' withPassword: 'pass'.
+	
+	aTopic := Topic create: 'General' withDescription: 'General Topic'.
+	topicsCollection := OrderedCollection new.
+	topicsCollection add: aTopic.
 
 	
 	
@@ -63,9 +67,6 @@ UserSetTest >> tearDown [
 { #category : #tests }
 UserSetTest >> testUserQuestions [
 
-	aTopic := Topic create: 'General' withDescription: 'General Topic'.
-	topicsCollection := OrderedCollection new.
-	topicsCollection add: aTopic.
 	aQuestion := testedUser askQuestion: 'Which is the best strategy?' withText:'I need to manage this project' withTopics: topicsCollection.
 	
 	aReply := testedUser2 replyQuestion: aQuestion withText: 'I think this strategy is better'.
@@ -84,20 +85,22 @@ UserSetTest >> testUserQuestions [
 { #category : #tests }
 UserSetTest >> testUserReactions [
 
-	aTopic := Topic create: 'General' withDescription: 'General Topic'.
-	topicsCollection := OrderedCollection new.
-	topicsCollection add: aTopic.
 	aQuestion := testedUser askQuestion: 'Which is the best strategy?' withText:'I need to manage this project' withTopics: topicsCollection.
 	
 	testedUser2 like: aQuestion.
 	testedUser3 like: aQuestion.
 	
+	self assert: (aQuestion likes) identicalTo: 2. 
+	
 	aReply := testedUser2 replyQuestion: aQuestion withText: 'I think this strategy is better'.
 	testedUser like: aReply.
 	
 	aReply := testedUser3 replyQuestion: aQuestion withText: 'In my case, I think is this one.'.
+	self assert: (aReply alreadyLiked: testedUser) identicalTo: false.
 	testedUser like: aReply.
 	testedUser like: aReply.
+	
+	self assert: (aReply alreadyLiked: testedUser) identicalTo: true.
 	testedUser like: aReply.
 	testedUser2 like: aReply.
 	
@@ -110,7 +113,10 @@ UserSetTest >> testUserReactions [
 	
 	aReply := testedUser2 replyQuestion: aQuestion withText: 'Nice :D Check both'.
 	aReply := testedUser3 replyQuestion: aQuestion withText: 'Cool'.
-	testedUser like: aReply.
+	testedUser dislike: aReply.
+	testedUser dislike: aReply.
+	
+	self assert: (aReply dislikes) identicalTo: 1.
 	
 	self assert: (aQuestion likes ) identicalTo: 2.
 
@@ -119,18 +125,26 @@ UserSetTest >> testUserReactions [
 
 { #category : #tests }
 UserSetTest >> testUserRelevantQuestions [
-	self assert: testedUser relevantQuestions size identicalTo: 0.
-	self assert: testedUser2 relevantQuestions size identicalTo: 0.
-	self assert: testedUser3 relevantQuestions size identicalTo: 1.
-
-	self addQuestions  .	
-	testedUser3 addFavTopic: topicsCollection first.
-	testedUser3 addFavTopic: topicsCollection first.
-	testedUser3 addFavTopic: topicsCollection second.
-	testedUser3 follow: testedUser2.
 	
-	self assert: testedUser relevantQuestions size identicalTo: 1.
-	self assert: testedUser3 relevantQuestions size identicalTo: 3.
+	"First. Set testeduser 2 and 3 as followers of testeduser 1 "
+	testedUser2 follow: testedUser.
+	testedUser3 follow: testedUser.
+	
+	"Testeduser 1 ask a question about a something with a general Topic"
+	aQuestion := testedUser askQuestion: 'Which is the best strategy?' withText:'I need to manage this project' withTopics: topicsCollection.	
+		
+	"Then, we add a new topic as favorite topic of testedUser 1. We rewrite the Topics collection"
+	topicsCollection := OrderedCollection new.
+	aTopic := Topic create: 'Software Techique' withDescription: 'Questions about different techniques applied to software project management'.
+	topicsCollection add: aTopic.
+	testedUser addFavTopic: aTopic.
+	
+	"Now, testedUser 1 ask a question about his favorite topic"
+	aQuestion := testedUser askQuestion: 'I need info about Lean' withText: 'Someone already worked with Lean technique?'  withTopics: topicsCollection.
+	
+
+	self assert: (testedUser2 relevantQuestions size) identicalTo: 2.
+	self assert: (testedUser relevantQuestions size) identicalTo: 0.
 ]
 
 { #category : #tests }

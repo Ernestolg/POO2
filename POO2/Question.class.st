@@ -93,6 +93,11 @@ Question >> removeMe [
 ]
 
 { #category : #remove }
+Question >> removeReplies [
+	replies do: [ :reply | reply user removeReply: reply ]
+]
+
+{ #category : #remove }
 Question >> removeReply [
 	replies :=nil.
 ]
