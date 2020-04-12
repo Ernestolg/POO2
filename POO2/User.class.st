@@ -194,8 +194,10 @@ User >> relevantQuestions [
 { #category : #remove }
 User >> removeQuestion:aQuestion [
 	questions detect: [ :question | question text == aQuestion text ] 
-							ifFound: [ self removeReply: aQuestion ] 
-							ifNone: [ ^ nil ].
+							ifFound: [ 
+								aQuestion removeReplies.
+								questions remove: aQuestion.
+							]
 
 ]
 
