@@ -38,8 +38,9 @@ Reply class >> create: anUser withText: aText withQuestion: aQuestion [
 ]
 
 { #category : #'adding elements' }
-Reply >> initialize: anUser withText: aText withQuestion: aQuestion [
-	self initialize: aText withText:anUser. 
+Reply >> initialize: anUser withText: aText withQuestion: aQuestion [ 
+	text := aText.
+	user := anUser.
 	question := aQuestion.
 	aQuestion addReply: self.
 ]
