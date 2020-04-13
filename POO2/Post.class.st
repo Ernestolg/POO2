@@ -65,11 +65,10 @@ Post >> creationTime [
 ]
 
 { #category : #adding }
-Post >> dislike: aUser [
+Post >> dislike: anUser [
 	| anInteraction |
-	(self alreadyReacted: aUser)
-		ifTrue: [ self removeInteraction: aUser].
-	anInteraction := Interaction create: aUser withLike: false.
+	self removeInteraction:anUser.
+	anInteraction := Interaction create: anUser withLike: false.
 	interactions add: anInteraction
 ]
 
@@ -98,8 +97,7 @@ Post >> interactions [
 { #category : #adding }
 Post >> like: anUser [
 	| anInteraction |
-	(self alreadyReacted: anUser)
-		ifTrue: [ self removeInteraction: anUser ].
+	self removeInteraction: anUser.
 	anInteraction := Interaction create: anUser withLike: true.
 	interactions add: anInteraction
 ]
@@ -111,9 +109,10 @@ Post >> likes [
 ]
 
 { #category : #adding }
-Post >> removeInteraction:aUser [
-	interactions := interactions reject: [ :interaction | interaction user = aUser ].
-
+Post >> removeInteraction: aUser [
+	interactions isNotEmpty
+		ifTrue: [ interactions := interactions
+				reject: [ :interaction | interaction user = aUser ] ]
 ]
 
 { #category : #accesing }

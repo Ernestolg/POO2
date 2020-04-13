@@ -178,20 +178,26 @@ UserSetTest >> testUserRemoveQuestion [
 
 { #category : #tests }
 UserSetTest >> testUserReplies [
-	self assert:(testedUser2 replies size) identicalTo:1.
+	self assert: testedUser2 replies size identicalTo: 0.
+	self addQuestions.
+	testedUser2
+		replyQuestion: testedUser questions first
+		withText: 'NO ES ASI BRO'.
+	self assert: testedUser2 replies size identicalTo: 1
 ]
 
 { #category : #tests }
 UserSetTest >> testUserScoring [
-	"self assert:(testedUser2 score) identicalTo:20."
-	self assert: testedUser2 replies size equals: 1.
-	self assert: testedUser2 questions size equals:0.
-	self assert: testedUser2 score equals: 50.
 	self addQuestions.
-	(testedUser2 questions first) addInteraction: testedUser like:true.
-	(testedUser2 questions first) addInteraction: testedUser2 like:true.
-	(testedUser2 questions first) addInteraction: testedUser2 like:true.
-	(testedUser2 questions first) addInteraction: testedUser3 like:true.	 
-	self assert: testedUser2 score equals: 73.  
-
+	testedUser2
+		replyQuestion: testedUser questions first
+		withText: 'NO ES ASI BRO'.
+	self assert: testedUser2 replies size equals: 1.
+	self assert: testedUser2 questions size equals: 1.
+	self assert: testedUser2 score equals: 70.
+	testedUser2 questions first addInteraction: testedUser like: true.
+	testedUser2 questions first addInteraction: testedUser2 like: true.
+	testedUser2 questions first addInteraction: testedUser2 like: true.
+	testedUser2 questions first addInteraction: testedUser3 like: true.
+	self assert: testedUser2 score equals: 73
 ]
