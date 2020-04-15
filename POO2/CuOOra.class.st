@@ -18,12 +18,26 @@ Class {
 		'users',
 		'topics'
 	],
+	#classInstVars : [
+		'soleInstance'
+	],
 	#category : #POO2
 }
 
 { #category : #initialization }
+CuOOra class >> clearSoleInstance [
+	soleInstance:=nil
+]
+
+{ #category : #initialization }
 CuOOra class >> create [ 
 ^self new initialize.
+]
+
+{ #category : #initialization }
+CuOOra class >> soleInstance [
+	soleInstance ifNil: [ soleInstance := self create ].
+	^ soleInstance
 ]
 
 { #category : #'adding elements' }
@@ -38,7 +52,7 @@ CuOOra >> addTopic: name withDescription: aDescription [
 { #category : #'adding elements' }
 CuOOra >> addUser: anUsername withPassword: aPassword [
 |anUser|
- (self usersExist: anUsername) ifTrue: [ ^false ].
+ (self usersExist: anUsername) ifTrue: [ ^nil ].
  anUser := User create: anUsername withPassword: aPassword.
  users add: anUser.  
  ^anUser.
@@ -49,6 +63,13 @@ CuOOra >> initialize [
  users:=OrderedCollection new.
  topics:=OrderedCollection new.
 
+]
+
+{ #category : #acccessing }
+CuOOra >> myUserWithName: aName protectedBy: aPassword [
+	^ users
+		detect: [ :each | each name = aName & (each password = aPassword) ]
+		ifNone: [  nil ]
 ]
 
 { #category : #acccessing }
@@ -67,6 +88,9 @@ CuOOra >> users [
 ]
 
 { #category : #acccessing }
-CuOOra >> usersExist:anUsername [
- ^ users includes: [ :user |user username == anUsername ].
+CuOOra >> usersExist: anUsername [
+	users
+		detect: [ :user | user itsMe: anUsername ]
+		ifFound: [ ^ true ]
+		ifNone: [ ^ false ]
 ]
