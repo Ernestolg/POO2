@@ -36,6 +36,11 @@ Question >> addReply:aReply [
 	replies add:aReply.
 ]
 
+{ #category : #callback }
+Question >> addToTopics:aCollection. [
+	aCollection do:[:each|each questions:self]
+]
+
 { #category : #accesing }
 Question >> imFromTopics:collectionT [
  "aqui se recibe una coleccion de topicos, los cuales se iteran para que 
@@ -54,6 +59,7 @@ Question >> initialize:aTitle withTopics:aTopicsCollection withText:aText withAu
 	title := aTitle.
 	topics := aTopicsCollection.
 	replies := OrderedCollection new.
+	self addToTopics:aTopicsCollection.
   
 ]
 

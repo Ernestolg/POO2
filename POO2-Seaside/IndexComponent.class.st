@@ -9,7 +9,7 @@ Class {
 
 { #category : #callback }
 IndexComponent >> askQuestion [
-	self call: QuestionComponent new.
+	self call: CreateQuestionComponent new.
 	self session user isNil
 		ifTrue: [ self answer ]
 ]

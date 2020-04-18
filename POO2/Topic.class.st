@@ -49,7 +49,7 @@ questions := OrderedCollection new.
 ]
 
 { #category : #accessing }
-Topic >> itsMe:aString [
+Topic >> itsMyTopic:aString [
  "devuelvo true o false si soy el topico que me llega por parametro"
 	^name=aString.
 	
@@ -58,6 +58,11 @@ Topic >> itsMe:aString [
 { #category : #accessing }
 Topic >> name [
 	^ name.
+]
+
+{ #category : #accessing }
+Topic >> printOn: aStream [
+	self name ifNotNil: [ aStream nextPutAll: self name ]
 ]
 
 { #category : #accessing }
