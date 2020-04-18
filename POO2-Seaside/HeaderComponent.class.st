@@ -40,6 +40,6 @@ HeaderComponent >> renderLogoutOn: aCanvas [
 			aCanvas space: 10.
 			aCanvas anchor
 				callback: [ self session userLogout.
-					caller logout ];
+					caller back ];
 				with: [ aCanvas button with: 'DESLOGUEAME' ] ]
 ]

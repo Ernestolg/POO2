@@ -1,11 +1,11 @@
 Class {
-	#name : #RegisComponent,
+	#name : #RegisterComponent,
 	#superclass : #AccessComponent,
 	#category : #'POO2-Seaside'
 }
 
 { #category : #rendering }
-RegisComponent >> registerAndLogin [
+RegisterComponent >> registerAndLogin [
 	| anUser |
 	anUser := self model addUser: username withPassword: password.
 	anUser
@@ -15,33 +15,33 @@ RegisComponent >> registerAndLogin [
 ]
 
 { #category : #rendering }
-RegisComponent >> renderAsegurarme: aCanvas [
+RegisterComponent >> renderAsegurarme: aCanvas [
 	aCanvas button
 		callback: [self answer  ];
 		with:'Back to Login' 
 ]
 
 { #category : #rendering }
-RegisComponent >> renderButtonsOn: aCanvas [
+RegisterComponent >> renderButtonsOn: aCanvas [
 	self renderSignUpButtonsOn: aCanvas.
 	self renderAsegurarme: aCanvas.
 ]
 
 { #category : #rendering }
-RegisComponent >> renderContentOn: aCanvas [
+RegisterComponent >> renderContentOn: aCanvas [
 	aCanvas heading:[aCanvas strong:'REGISTER'].
 	aCanvas horizontalRule.
 	super renderContentOn:aCanvas.
 ]
 
 { #category : #rendering }
-RegisComponent >> renderInputElementsOn: aCanvas [
+RegisterComponent >> renderInputElementsOn: aCanvas [
 	super renderInputElementsOn: aCanvas.
 	
 ]
 
 { #category : #rendering }
-RegisComponent >> renderSignUpButtonsOn: aCanvas [
+RegisterComponent >> renderSignUpButtonsOn: aCanvas [
 	aCanvas submitButton
 		callback: [ self registerAndLogin ];
 		with: 'Register'

@@ -14,9 +14,34 @@ IndexComponent >> askQuestion [
 		ifTrue: [ self answer ]
 ]
 
+{ #category : #callback }
+IndexComponent >> back [
+	self answer.
+]
+
 { #category : #initialize }
 IndexComponent >> children [
 	^ {header}
+]
+
+{ #category : #callback }
+IndexComponent >> goToQuestion: aQuestion [
+	| aComponent |
+	aComponent := QuestionComponent new.
+	aComponent question: aQuestion.
+	self call: aComponent.
+	self session user isNil
+		ifTrue: [ self answer ]
+]
+
+{ #category : #callback }
+IndexComponent >> goToUser: aUser [
+	| aComponent |
+	aComponent := UserComponent new.
+	aComponent user: aUser.
+	self call: aComponent.
+	self session user isNil
+		ifTrue: [ self answer ]
 ]
 
 { #category : #initialize }
@@ -25,11 +50,6 @@ IndexComponent >> initialize [
 	header:= HeaderComponent new.
 	header caller:self.
 	
-]
-
-{ #category : #callback }
-IndexComponent >> logout [
-	self answer.
 ]
 
 { #category : #rendering }
@@ -75,13 +95,18 @@ IndexComponent >> renderContentOn: aCanvas [
 
 { #category : #rendering }
 IndexComponent >> renderQuestionOn: aCanvas withQuestion: question [
-	aCanvas paragraph: question title.
+	aCanvas
+		paragraph: [ aCanvas anchor
+				callback: [ self goToQuestion: question ];
+				with: question title ].
 	aCanvas
 		paragraph: [ aCanvas
 				text: 'realizada por :   ';
-				strong: question user name ].
-	self renderButtonsOn: aCanvas withQuestion: question.
-
+				strong: question user name.
+			aCanvas anchor
+				callback: [ self goToUser: question user ];
+				with: question user name ].
+	self renderButtonsOn: aCanvas withQuestion: question
 ]
 
 { #category : #rendering }

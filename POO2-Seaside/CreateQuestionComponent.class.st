@@ -11,6 +11,11 @@ Class {
 }
 
 { #category : #callback }
+CreateQuestionComponent >> back [
+	 self answer.
+]
+
+{ #category : #callback }
 CreateQuestionComponent >> cargarPregunta [
 	self session user
 		askQuestion: title
@@ -23,13 +28,8 @@ CreateQuestionComponent >> cargarPregunta [
 CreateQuestionComponent >> initialize [
 	super initialize.
 	header := HeaderComponent new.
-	topics:=Set new.
-	header caller: self
-]
-
-{ #category : #callback }
-CreateQuestionComponent >> logout [
-	 self answer.
+	header caller: self.
+	topics := Set new
 ]
 
 { #category : #rendering }
