@@ -106,3 +106,28 @@ Question >> removeReply [
 Question >> replies [
 	^replies .
 ]
+
+{ #category : #accessing }
+Question >> replies: anObject [
+	replies := anObject
+]
+
+{ #category : #accessing }
+Question >> title [
+	^ title
+]
+
+{ #category : #accesing }
+Question >> title: aString [
+	title:=aString
+]
+
+{ #category : #accessing }
+Question >> topics [
+	^ topics
+]
+
+{ #category : #accessing }
+Question >> topics: anObject [
+	topics := anObject
+]

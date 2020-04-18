@@ -3,7 +3,8 @@ Class {
 	#superclass : #WAComponent,
 	#instVars : [
 		'username',
-		'password'
+		'password',
+		'errorMessage'
 	],
 	#category : #'POO2-Seaside'
 }
@@ -25,8 +26,12 @@ AccessComponent >> password: anObject [
 
 { #category : #private }
 AccessComponent >> proceedWith: anUser [
+	errorMessage :=nil.
 	self session user: anUser.
 	self call: IndexComponent new.
+	username:=nil.
+	password:=nil.
+	
 ]
 
 { #category : #rendering }
@@ -36,9 +41,10 @@ AccessComponent >> renderButtonsOn: aCanvas [
 
 { #category : #rendering }
 AccessComponent >> renderContentOn: aCanvas [
+	errorMessage ifNotNil: [ aCanvas paragraph: errorMessage ].
 	aCanvas
 		form: [ self renderInputElementsOn: aCanvas.
-			self renderButtonsOn: aCanvas ].
+			self renderButtonsOn: aCanvas ]
 ]
 
 { #category : #rendering }

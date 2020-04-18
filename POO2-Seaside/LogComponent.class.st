@@ -1,37 +1,43 @@
 Class {
-	#name : #LoginComponent,
+	#name : #LogComponent,
 	#superclass : #AccessComponent,
 	#category : #'POO2-Seaside'
 }
 
 { #category : #callbacks }
-LoginComponent >> login [
+LogComponent >> login [
 	(self model myUserWithName: username protectedBy: password)
-		ifNotNil: [ :it | self proceedWith: it ].
-	username := nil.
-	password := nil
+		ifNotNil: [ :it | self proceedWith: it ]
+		ifNil: [ errorMessage := 'Username or password incorrect' ]
 ]
 
 { #category : #callbacks }
-LoginComponent >> model [
+LogComponent >> model [
 	^CuOOra soleInstance 
 	
 ]
 
 { #category : #callbacks }
-LoginComponent >> registerNewUser [
-	self call: RegisterComponent new
+LogComponent >> registerNewUser [
+	self call: RegisComponent new
 ]
 
 { #category : #rendering }
-LoginComponent >> renderButtonsOn: aCanvas [
+LogComponent >> renderButtonsOn: aCanvas [
 	self renderSignInButtonOn: aCanvas.
 	self renderSignUpButtonOn: aCanvas
 	
 ]
 
 { #category : #rendering }
-LoginComponent >> renderSignInButtonOn: aCanvas [
+LogComponent >> renderContentOn: aCanvas [
+	aCanvas heading:[aCanvas strong:'LOGIN'].
+	aCanvas horizontalRule.
+	super renderContentOn:aCanvas.
+]
+
+{ #category : #rendering }
+LogComponent >> renderSignInButtonOn: aCanvas [
 	aCanvas submitButton
 		callback:[self login];
 		with:'Sign In'
@@ -39,7 +45,7 @@ LoginComponent >> renderSignInButtonOn: aCanvas [
 ]
 
 { #category : #callbacks }
-LoginComponent >> renderSignUpButtonOn: aCanvas [
+LogComponent >> renderSignUpButtonOn: aCanvas [
 	aCanvas submitButton
 		callback: [ self registerNewUser ];
 		with: 'Sign Up, it''s free'

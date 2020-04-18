@@ -16,3 +16,8 @@ SessionWithUser >> user [
 SessionWithUser >> user: anObject [
 	user := anObject
 ]
+
+{ #category : #accessing }
+SessionWithUser >> userLogout [
+	user:=nil.
+]

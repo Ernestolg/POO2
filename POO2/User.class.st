@@ -184,11 +184,16 @@ User >> questions [
 
 { #category : #callback }
 User >> relevantQuestions [
-	|questionsSet|
-	questionsSet:=Set new.
-	favTopics ifNotEmpty:[ favTopics do: [:each| each addRelevant:questionsSet]].
-	followers ifNotEmpty: [ followers do: [ :each| each addRelevant: questionsSet ]].	
-	^questionsSet.
+	| questionsSet collection |
+	collection := SortedCollection
+		sortBlock: [ :a :b | a creationDate < b creationDate & (a creationTime < b creationTime) ].
+	questionsSet := Set new.
+	favTopics
+		ifNotEmpty: [ favTopics do: [ :each | each addRelevant: questionsSet ] ].
+	followers
+		ifNotEmpty: [ followers do: [ :each | each addRelevant: questionsSet ] ].
+	collection addAll: questionsSet.
+	^ collection
 ]
 
 { #category : #remove }
