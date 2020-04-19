@@ -43,14 +43,6 @@ QuestionComponent >> renderAnswerOn: aCanvas withReply: aReply [
 ]
 
 { #category : #rendering }
-QuestionComponent >> renderBackButtonOn: aCanvas [
-	aCanvas
-		paragraph: [ aCanvas anchor
-				callback: [ self back ];
-				with: 'Go back!' ]
-]
-
-{ #category : #rendering }
 QuestionComponent >> renderButtonsOn: aCanvas withReply: aReply [
 	aCanvas anchor
 		callback: [ aReply dislike: self session user ];
@@ -73,7 +65,6 @@ QuestionComponent >> renderCollectionAnswerOn: aCanvas [
 
 { #category : #rendering }
 QuestionComponent >> renderContentOn: aCanvas [
-	self renderBackButtonOn: aCanvas.
 	showQuestion collection: self question.
 	aCanvas render: showQuestion.
 	aCanvas

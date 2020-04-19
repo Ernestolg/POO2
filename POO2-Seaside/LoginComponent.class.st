@@ -13,7 +13,7 @@ LoginComponent >> login [
 
 { #category : #callbacks }
 LoginComponent >> model [
-	^CuOOra soleInstance 
+	^CuOOra createSample . 
 	
 ]
 

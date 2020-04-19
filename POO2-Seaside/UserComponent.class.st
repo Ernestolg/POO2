@@ -27,16 +27,7 @@ UserComponent >> initialize [
 ]
 
 { #category : #rendering }
-UserComponent >> renderBackButtonOn: aCanvas [
-	aCanvas
-		paragraph: [ aCanvas anchor
-				callback: [ self back ];
-				with: 'Go back!' ]
-]
-
-{ #category : #rendering }
 UserComponent >> renderContentOn: aCanvas [
-	self renderBackButtonOn:aCanvas.
 	showQuestion message:'PERFIL DE : ',user name .
 	showQuestion collection: user questions.	
 	aCanvas paragraph:[self renderFollowOn:aCanvas].

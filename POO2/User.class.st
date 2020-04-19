@@ -44,11 +44,6 @@ User >> addFavTopic:topic [
 ]
 
 { #category : #'adding elements' }
-User >> addFollower: anUser [
-	followers add: anUser.
-]
-
-{ #category : #'adding elements' }
 User >> addRelevant:aSet [
 
 aSet addAll: self questions.
@@ -93,11 +88,6 @@ User >> followers [
 	^ followers
 ]
 
-{ #category : #callback }
-User >> followingUser:anUser [ 
-	^ followers anySatisfy: [ :user | user username == anUser username ].
-]
-
 { #category : #initialization }
 User >> initialize:nameUser withPassword:passUser [
 
@@ -125,7 +115,7 @@ User >> interactionScoring [
 { #category : #callback }
 User >> isFavoriteTopic: aTopicsCollection [
 
-	^ (aTopicsCollection anySatisfy: [ :topic | favTopics includes: [ :favTopic | favTopic name == topic name ] ]).
+	^ (aTopicsCollection anySatisfy: [ :topic | favTopics includes: [ :favTopic | favTopic itsMyTopic: topic name ] ]).
 ]
 
 { #category : #callback }
@@ -142,12 +132,6 @@ User >> itsMe:name2 [
 { #category : #callback }
 User >> itsMyTopic: aTopicName [
 	^ favTopics includes: [ :topic | topic name == aTopicName ].
-]
-
-{ #category : #callback }
-User >> itsMyUser:aUser [
-	"respondo si soy el usuario que recibo"
-	^ (aUser itsMe:name).
 ]
 
 { #category : #callback }
@@ -169,6 +153,11 @@ User >> password [
 User >> postScoring [
 
 	^ (self replyScoring + self questionScoring).
+]
+
+{ #category : #'adding elements' }
+User >> protected:aString [
+	^ (self password=aString).
 ]
 
 { #category : #callback }
@@ -208,7 +197,7 @@ User >> removeQuestion:aQuestion [
 
 { #category : #remove }
 User >> removeReplies:aQuestion [
-	aQuestion replies do: [ :reply | replies remove: reply].
+	aQuestion replies do: [ :reply | self replies remove: reply].
 ]
 
 { #category : #remove }

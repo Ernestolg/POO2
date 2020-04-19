@@ -101,7 +101,7 @@ pedro replyQuestion: question1 withText: 'Significa que el objeto que recibió e
 { #category : #acccessing }
 CuOOra >> myUserWithName: aName protectedBy: aPassword [
 	^ users
-		detect: [ :each | each name = aName & (each password = aPassword) ]
+		detect: [ :each | each itsMe: aName & (each protected: aPassword) ]
 		ifNone: [  nil ]
 ]
 

@@ -44,19 +44,10 @@ CreateQuestionComponent >> renderAddListOn: aCanvas withCollection: aCollection 
 ]
 
 { #category : #rendering }
-CreateQuestionComponent >> renderBackButtonOn: aCanvas [
-	aCanvas
-		paragraph: [ aCanvas anchor
-				callback: [ self back ];
-				with: 'Go back!' ]
-]
-
-{ #category : #rendering }
 CreateQuestionComponent >> renderContentOn: aCanvas [
 	| model |
 	model := CuOOra soleInstance.
 	aCanvas render: header.
-	self renderBackButtonOn:aCanvas.
 	self renderAddListOn: aCanvas withCollection:model topics. 
 	self renderDeleteListOn: aCanvas.
 	aCanvas

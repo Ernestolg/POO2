@@ -42,15 +42,8 @@ Question >> addToTopics:aCollection. [
 ]
 
 { #category : #accesing }
-Question >> imFromTopics:collectionT [
- "aqui se recibe una coleccion de topicos, los cuales se iteran para que 
-  se agrege en cada uno la instancia de la pregunta ,asi cada topico la conoce"
-	collectionT do: [ :each| each questions:self ].
-]
-
-{ #category : #accesing }
 Question >> imFromUser:anUser [
-	^(user itsMyUser: anUser).
+	^(user itsMe: anUser name).
 ]
 
 { #category : #'initialization - private' }
@@ -70,13 +63,6 @@ Question >> myRepliesSorted [
 	coleccion:=SortedCollection sortBlock:[:a :b| a point  >= b point  ].
 	coleccion addAll: (replies) .	
 	^ coleccion.
-]
-
-{ #category : #callback }
-Question >> relevant: anUser [
-	"A question is relevant when: its writer is a follower of user or its topic 
-	matches with a user favorite topic"
-	^ (anUser isFollower: user) | (anUser isFavoriteTopic: topics).
 ]
 
 { #category : #remove }

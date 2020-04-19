@@ -44,14 +44,15 @@ Post >> addInteraction:aUser like:aBoolean [
 ]
 
 { #category : #adding }
-Post >> alreadyLiked:aUser [
-	^ interactions anySatisfy: [ :interaction | interaction user name ==  aUser name & (interaction like)]
-
+Post >> alreadyLiked: aUser [
+	^ interactions
+		anySatisfy:
+			[ :interaction | interaction user itsMe: aUser name & interaction like ]
 ]
 
 { #category : #callback }
 Post >> alreadyReacted: anUser [
-	^ interactions anySatisfy: [ :interaction | interaction user name == anUser name ].
+	^ interactions anySatisfy: [ :interaction | interaction user itsMe: anUser name ].
 ]
 
 { #category : #accesing }
@@ -112,7 +113,7 @@ Post >> likes [
 Post >> removeInteraction: aUser [
 	interactions isNotEmpty
 		ifTrue: [ interactions := interactions
-				reject: [ :interaction | interaction user = aUser ] ]
+				reject: [ :interaction | interaction user itsMe: aUser name ] ]
 ]
 
 { #category : #accesing }
