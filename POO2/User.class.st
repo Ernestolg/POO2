@@ -130,7 +130,7 @@ User >> isFavoriteTopic: aTopicsCollection [
 
 { #category : #callback }
 User >> isFollower: anUser [
-	^ (followers anySatisfy: [:follower | follower name == anUser name]).
+	^ (followers anySatisfy: [:follower | follower itsMe:  anUser name]).
 ]
 
 { #category : #callback }
@@ -242,4 +242,9 @@ User >> score [
 	
 	^ (self postScoring  + self interactionScoring)
 	
+]
+
+{ #category : #callback }
+User >> unfollow: anUser [
+	followers := followers reject: [ :each | each itsMyUser: anUser ]
 ]

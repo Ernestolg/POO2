@@ -2,8 +2,8 @@ Class {
 	#name : #QuestionComponent,
 	#superclass : #WAComponent,
 	#instVars : [
-		'header',
-		'question'
+		'question',
+		'showQuestion'
 	],
 	#category : #'POO2-Seaside'
 }
@@ -14,18 +14,11 @@ QuestionComponent >> back [
 ]
 
 { #category : #initialization }
-QuestionComponent >> initialize [
+QuestionComponent >> initialize [ 
 	super initialize.
-	header:= HeaderComponent new.
-	header caller:self.
+	self showQuestion: ShowQuestionsComponent new.
+	self question:OrderedCollection new.
 	
-]
-
-{ #category : #initialization }
-QuestionComponent >> initialize: aQuestion [
-	self initialize.
-	header := HeaderComponent new.
-	question := aQuestion
 ]
 
 { #category : #accessing }
@@ -34,16 +27,69 @@ QuestionComponent >> question [
 ]
 
 { #category : #accessing }
-QuestionComponent >> question: anObject [
-	question := anObject
+QuestionComponent >> question: aQuestion [
+	question := aQuestion 
 ]
 
-{ #category : #initialization }
-QuestionComponent >> renderContentOn: aCanvas [
-	aCanvas render:header.
+{ #category : #rendering }
+QuestionComponent >> renderAnswerOn: aCanvas withReply: aReply [
+	aCanvas paragraph: [ aCanvas text: aReply text].
 	aCanvas
 		paragraph: [ aCanvas
-				text: 'ESTO ES LA PREGUNTA   :';
-				space: 10;
-				text: self question title ]
+				text: 'realizada por :   ';
+				space: 2;
+				text: aReply user name ].
+	self renderButtonsOn: aCanvas withReply: aReply
+]
+
+{ #category : #rendering }
+QuestionComponent >> renderBackButtonOn: aCanvas [
+	aCanvas
+		paragraph: [ aCanvas anchor
+				callback: [ self back ];
+				with: 'Go back!' ]
+]
+
+{ #category : #rendering }
+QuestionComponent >> renderButtonsOn: aCanvas withReply: aReply [
+	aCanvas anchor
+		callback: [ aReply dislike: self session user ];
+		with:  aReply dislikes asString,'  dislikes'.
+	aCanvas text:' | '.
+	aCanvas anchor
+		callback: [ aReply like: self session user ];
+		with: aReply likes asString,'  likes'
+]
+
+{ #category : #rendering }
+QuestionComponent >> renderCollectionAnswerOn: aCanvas [
+	aCanvas
+		unorderedList: [ self question replies 
+				do: [ :each | 
+					aCanvas
+						listItem: [ self renderAnswerOn: aCanvas withReply: each ].
+					aCanvas horizontalRule ] ]
+]
+
+{ #category : #rendering }
+QuestionComponent >> renderContentOn: aCanvas [
+	self renderBackButtonOn: aCanvas.
+	showQuestion collection: self question.
+	aCanvas render: showQuestion.
+	aCanvas
+		paragraph: [ aCanvas
+				strong: 'Respuestas !';
+				horizontalRule;
+				break.
+			self renderCollectionAnswerOn: aCanvas ]
+]
+
+{ #category : #accessing }
+QuestionComponent >> showQuestion [
+	^ showQuestion
+]
+
+{ #category : #accessing }
+QuestionComponent >> showQuestion: anObject [
+	showQuestion := anObject
 ]

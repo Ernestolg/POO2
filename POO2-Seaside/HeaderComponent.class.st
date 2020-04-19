@@ -23,6 +23,14 @@ HeaderComponent >> initialize:aComponent [
 	caller:= aComponent.
 ]
 
+{ #category : #callback }
+HeaderComponent >> renderBackButtonOn: aCanvas [
+	aCanvas
+		paragraph: [ aCanvas anchor
+				callback: [ caller back ];
+				with: 'Go back!' ]
+]
+
 { #category : #rendering }
 HeaderComponent >> renderContentOn: aCanvas [
 	aCanvas
@@ -30,7 +38,9 @@ HeaderComponent >> renderContentOn: aCanvas [
 				level: 2;
 				with: 'Bienvenido a CuOOra !'.
 			self renderLogoutOn: aCanvas ].
-	aCanvas horizontalRule
+	aCanvas
+		horizontalRule;
+		horizontalRule
 ]
 
 { #category : #rendering }
