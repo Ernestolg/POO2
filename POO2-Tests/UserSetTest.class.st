@@ -84,23 +84,25 @@ UserSetTest >> testUserQuestions [
 
 { #category : #tests }
 UserSetTest >> testUserReactions [
-
-	aQuestion := testedUser askQuestion: 'Which is the best strategy?' withText:'I need to manage this project' withTopics: topicsCollection.
-	
+	aQuestion := testedUser
+		askQuestion: 'Which is the best strategy?'
+		withText: 'I need to manage this project'
+		withTopics: topicsCollection.
 	testedUser2 like: aQuestion.
 	testedUser3 like: aQuestion.
-	
-	self assert: (aQuestion likes) identicalTo: 2. 
-	
-	aReply := testedUser2 replyQuestion: aQuestion withText: 'I think this strategy is better'.
+	self assert: aQuestion likes identicalTo: 2.
+	aReply := testedUser2
+		replyQuestion: aQuestion
+		withText: 'I think this strategy is better'.
 	testedUser like: aReply.
-	
-	aReply := testedUser3 replyQuestion: aQuestion withText: 'In my case, I think is this one.'.
+	aReply := testedUser3
+		replyQuestion: aQuestion
+		withText: 'In my case, I think is this one.'.
 	self assert: (aReply alreadyLiked: testedUser) identicalTo: false.
 	testedUser like: aReply.
 	testedUser like: aReply.
-	
-	self assert: (aReply alreadyLiked: testedUser) identicalTo: true.
+
+	self assert:(aReply alreadyLiked: testedUser) identicalTo:true.
 	testedUser like: aReply.
 	testedUser2 like: aReply.
 	
@@ -119,8 +121,7 @@ UserSetTest >> testUserReactions [
 	self assert: (aReply dislikes) identicalTo: 1.
 	
 	self assert: (aQuestion likes ) identicalTo: 2.
-
-
+	
 ]
 
 { #category : #tests }
@@ -144,7 +145,11 @@ UserSetTest >> testUserRelevantQuestions [
 	
 
 	self assert: (testedUser2 relevantQuestions size) identicalTo: 2.
-	self assert: (testedUser relevantQuestions size) identicalTo: 0.
+	self assert: (testedUser relevantQuestions size) identicalTo: 1.
+	
+	testedUser askQuestion: 'I don get how to use git' withText: 'Someone already worked with git?'  withTopics: topicsCollection.
+	
+	self assert:(testedUser relevantQuestions size) identicalTo:2.
 ]
 
 { #category : #tests }

@@ -45,9 +45,7 @@ Post >> addInteraction:aUser like:aBoolean [
 
 { #category : #adding }
 Post >> alreadyLiked: aUser [
-	^ interactions
-		anySatisfy:
-			[ :interaction | interaction user itsMe: aUser name & interaction like ]
+^ interactions anySatisfy: [ :interaction | (interaction user itsMe: aUser name) & (interaction like)]
 ]
 
 { #category : #callback }
