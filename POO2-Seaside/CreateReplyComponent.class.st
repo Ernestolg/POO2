@@ -1,5 +1,5 @@
 Class {
-	#name : #CreateAnswerComponent,
+	#name : #CreateReplyComponent,
 	#superclass : #WAComponent,
 	#instVars : [
 		'header',
@@ -10,36 +10,35 @@ Class {
 }
 
 { #category : #rendering }
-CreateAnswerComponent >> crearRespuesta [
-	| reply |
-	reply := self session user
+CreateReplyComponent >> crearRespuesta [
+	self session user
 		replyQuestion: self question
 		withText: self respuesta.
-	self answer.
+		self respuesta: nil.
 ]
 
 { #category : #accessing }
-CreateAnswerComponent >> header [
+CreateReplyComponent >> header [
 	^ header
 ]
 
 { #category : #accessing }
-CreateAnswerComponent >> header: anObject [
+CreateReplyComponent >> header: anObject [
 	header := anObject
 ]
 
 { #category : #accessing }
-CreateAnswerComponent >> question [
+CreateReplyComponent >> question [
 	^ question
 ]
 
 { #category : #accessing }
-CreateAnswerComponent >> question: anObject [
+CreateReplyComponent >> question: anObject [
 	question := anObject
 ]
 
 { #category : #rendering }
-CreateAnswerComponent >> renderContentOn: aCanvas [
+CreateReplyComponent >> renderContentOn: aCanvas [
 	aCanvas
 		form: [ aCanvas
 				paragraph: [ aCanvas strong: 'Respuesta  :'.
@@ -53,11 +52,11 @@ CreateAnswerComponent >> renderContentOn: aCanvas [
 ]
 
 { #category : #accessing }
-CreateAnswerComponent >> respuesta [
+CreateReplyComponent >> respuesta [
 	^ respuesta
 ]
 
 { #category : #accessing }
-CreateAnswerComponent >> respuesta: anObject [
+CreateReplyComponent >> respuesta: anObject [
 	respuesta := anObject
 ]

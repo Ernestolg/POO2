@@ -4,7 +4,8 @@ Class {
 	#instVars : [
 		'question',
 		'showQuestion',
-		'header'
+		'header',
+		'answerBox'
 	],
 	#category : #'POO2-Seaside'
 }
@@ -18,14 +19,14 @@ QuestionComponent >> back [
 QuestionComponent >> children [
  |collection|
 	collection :=OrderedCollection new.
-	collection add: header;add:	showQuestion .
+	collection add: header;add:	showQuestion;add:answerBox .
 	^ collection.
 ]
 
 { #category : #rendering }
 QuestionComponent >> crearRespuesta [
 	| aComponent |
-	aComponent := CreateAnswerComponent new.
+	aComponent := CreateReplyComponent new.
 	aComponent question: self question.
 	self call: aComponent.
 	self session user isNil
@@ -37,6 +38,7 @@ QuestionComponent >> initialize [
 	super initialize.
 	self showQuestion: ShowQuestionsComponent new.
 	self question: OrderedCollection new.
+	answerBox:=CreateReplyComponent new.
 	header := HeaderComponent new.
 	header caller: self
 ]
@@ -87,10 +89,8 @@ QuestionComponent >> renderContentOn: aCanvas [
 	self renderBackButtonOn: aCanvas.
 	showQuestion collection: self question.
 	aCanvas render: showQuestion.
-	aCanvas
-		paragraph: [ aCanvas anchor
-				callback: [ self crearRespuesta  ];
-				with: 'Realizar una respuesta' ].
+	answerBox question:self question.
+	aCanvas render: answerBox .
 	aCanvas
 		paragraph: [ aCanvas
 				strong: 'Respuestas !';
