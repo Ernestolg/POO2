@@ -3,7 +3,8 @@ Class {
 	#superclass : #WAComponent,
 	#instVars : [
 		'user',
-		'showQuestion'
+		'showQuestion',
+		'header'
 	],
 	#category : #'POO2-Seaside'
 }
@@ -15,19 +16,37 @@ UserComponent >> back [
 ]
 
 { #category : #rendering }
+UserComponent >> children [
+ |collection|
+	collection :=OrderedCollection new.
+	collection add: header;add:	showQuestion .
+	^ collection.
+]
+
+{ #category : #rendering }
 UserComponent >> followUser [
 	self session user follow: self user.
 ]
 
-{ #category : #initalize }
-UserComponent >> initialize [ 
+{ #category : #initialize }
+UserComponent >> initialize [
 	super initialize.
 	showQuestion := ShowQuestionsComponent new.
-	
+	header := HeaderComponent new.
+	header caller: self
+]
+
+{ #category : #accessing }
+UserComponent >> renderBackButtonOn: aCanvas [
+	aCanvas anchor
+		callback: [ self back ];
+		with: 'Volver !'
 ]
 
 { #category : #rendering }
 UserComponent >> renderContentOn: aCanvas [
+	aCanvas render:header.
+	self renderBackButtonOn: aCanvas.
 	showQuestion message:'PERFIL DE : ',user name .
 	showQuestion collection: user questions.	
 	aCanvas paragraph:[self renderFollowOn:aCanvas].

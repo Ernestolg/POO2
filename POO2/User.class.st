@@ -120,7 +120,7 @@ User >> isFavoriteTopic: aTopicsCollection [
 
 { #category : #callback }
 User >> isFollower: anUser [
-	^ (followers anySatisfy: [:follower | follower itsMe:  anUser name]).
+	^ (followers anySatisfy: [:follower | (follower itsMe:  anUser name)]).
 ]
 
 { #category : #callback }
@@ -175,7 +175,7 @@ User >> questions [
 User >> relevantQuestions [
 	| questionsSet collection |
 	collection := SortedCollection
-		sortBlock: [ :a :b | a creationDate < b creationDate & (a creationTime < b creationTime) ].
+		sortBlock: [ :a :b | (a creationDate < b creationDate) & (a creationTime < b creationTime) ].
 	questionsSet := Set new.
 	favTopics
 		ifNotEmpty: [ favTopics do: [ :each | each addRelevant: questionsSet ] ].
@@ -235,5 +235,5 @@ User >> score [
 
 { #category : #callback }
 User >> unfollow: anUser [
-	followers := followers reject: [ :each | each itsMyUser: anUser ]
+	followers := followers reject: [ :each | each itsMe: anUser name]
 ]

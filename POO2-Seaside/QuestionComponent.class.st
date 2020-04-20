@@ -3,7 +3,8 @@ Class {
 	#superclass : #WAComponent,
 	#instVars : [
 		'question',
-		'showQuestion'
+		'showQuestion',
+		'header'
 	],
 	#category : #'POO2-Seaside'
 }
@@ -14,11 +15,20 @@ QuestionComponent >> back [
 ]
 
 { #category : #initialization }
-QuestionComponent >> initialize [ 
+QuestionComponent >> children [
+ |collection|
+	collection :=OrderedCollection new.
+	collection add: header;add:	showQuestion .
+	^ collection.
+]
+
+{ #category : #initialization }
+QuestionComponent >> initialize [
 	super initialize.
 	self showQuestion: ShowQuestionsComponent new.
-	self question:OrderedCollection new.
-	
+	self question: OrderedCollection new.
+	header := HeaderComponent new.
+	header caller: self
 ]
 
 { #category : #accessing }
@@ -33,24 +43,22 @@ QuestionComponent >> question: aQuestion [
 
 { #category : #rendering }
 QuestionComponent >> renderAnswerOn: aCanvas withReply: aReply [
-	aCanvas paragraph: [ aCanvas text: aReply text].
+	aCanvas paragraph: [ aCanvas text: aReply text ].
 	aCanvas
 		paragraph: [ aCanvas
 				text: 'realizada por :   ';
-				space: 2;
-				text: aReply user name ].
-	self renderButtonsOn: aCanvas withReply: aReply
+				space: 2.
+			aCanvas anchor
+				callback: [ showQuestion goToUser: aReply user ];
+				with: aReply user name ].
+	showQuestion renderButtonsOn: aCanvas withQuestion: aReply
 ]
 
-{ #category : #rendering }
-QuestionComponent >> renderButtonsOn: aCanvas withReply: aReply [
+{ #category : #accessing }
+QuestionComponent >> renderBackButtonOn: aCanvas [
 	aCanvas anchor
-		callback: [ aReply dislike: self session user ];
-		with:  aReply dislikes asString,'  dislikes'.
-	aCanvas text:' | '.
-	aCanvas anchor
-		callback: [ aReply like: self session user ];
-		with: aReply likes asString,'  likes'
+		callback: [ self back ];
+		with: 'Volver'
 ]
 
 { #category : #rendering }
@@ -65,6 +73,8 @@ QuestionComponent >> renderCollectionAnswerOn: aCanvas [
 
 { #category : #rendering }
 QuestionComponent >> renderContentOn: aCanvas [
+	aCanvas render:header.
+	self renderBackButtonOn: aCanvas.
 	showQuestion collection: self question.
 	aCanvas render: showQuestion.
 	aCanvas

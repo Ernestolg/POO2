@@ -24,6 +24,14 @@ CreateQuestionComponent >> cargarPregunta [
 	self answer
 ]
 
+{ #category : #callback }
+CreateQuestionComponent >> children [
+ |collection|
+	collection :=OrderedCollection new.
+	collection add: header.
+	^ collection.
+]
+
 { #category : #initialization }
 CreateQuestionComponent >> initialize [
 	super initialize.

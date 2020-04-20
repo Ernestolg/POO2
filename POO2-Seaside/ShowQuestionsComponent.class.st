@@ -3,7 +3,8 @@ Class {
 	#superclass : #WAComponent,
 	#instVars : [
 		'collection',
-		'message'
+		'message',
+		'caller'
 	],
 	#category : #'POO2-Seaside'
 }
@@ -23,7 +24,7 @@ ShowQuestionsComponent >> goToQuestion: aQuestion [
 	| aComponent |
 	aComponent := QuestionComponent new.
 	aComponent question: aQuestion.
-	self call: aComponent.
+	self session presenter call: aComponent.
 	self session user isNil
 		ifTrue: [ self answer ]
 ]
@@ -33,7 +34,7 @@ ShowQuestionsComponent >> goToUser: aUser [
 	| aComponent |
 	aComponent := UserComponent new.
 	aComponent user: aUser.
-	self call: aComponent.
+	self session presenter call:aComponent.	
 	self session user isNil
 		ifTrue: [ self answer ]
 ]
@@ -81,6 +82,8 @@ ShowQuestionsComponent >> renderQuestionOn: aCanvas withQuestion: question [
 		paragraph: [ aCanvas anchor
 				callback: [ self goToQuestion: question ];
 				with: question title ].
+	aCanvas
+		paragraph: [ question topics do: [ :each | aCanvas text: each name , ',' ] ].
 	aCanvas
 		paragraph: [ aCanvas
 				text: 'realizada por :   ';

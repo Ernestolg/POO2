@@ -47,8 +47,8 @@ IndexComponent >> renderAskQuestionOn: aCanvas. [
 { #category : #rendering }
 IndexComponent >> renderContentOn: aCanvas [
 	aCanvas render: header.
-	showQuestion message:'MIS PREGUNTAS FAVORITAS!  '.
-	showQuestion collection: self session user relevantQuestions .
+	showQuestion message: 'MIS PREGUNTAS FAVORITAS!  '.
+	showQuestion collection: self session user relevantQuestions.
 	aCanvas render: showQuestion.
 	self renderAskQuestionOn: aCanvas
 ]
