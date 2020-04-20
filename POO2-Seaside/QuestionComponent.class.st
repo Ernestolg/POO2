@@ -22,6 +22,16 @@ QuestionComponent >> children [
 	^ collection.
 ]
 
+{ #category : #rendering }
+QuestionComponent >> crearRespuesta [
+	| aComponent |
+	aComponent := CreateAnswerComponent new.
+	aComponent question: self question.
+	self call: aComponent.
+	self session user isNil
+		ifTrue: [ self answer ]
+]
+
 { #category : #initialization }
 QuestionComponent >> initialize [
 	super initialize.
@@ -73,10 +83,14 @@ QuestionComponent >> renderCollectionAnswerOn: aCanvas [
 
 { #category : #rendering }
 QuestionComponent >> renderContentOn: aCanvas [
-	aCanvas render:header.
+	aCanvas render: header.
 	self renderBackButtonOn: aCanvas.
 	showQuestion collection: self question.
 	aCanvas render: showQuestion.
+	aCanvas
+		paragraph: [ aCanvas anchor
+				callback: [ self crearRespuesta  ];
+				with: 'Realizar una respuesta' ].
 	aCanvas
 		paragraph: [ aCanvas
 				strong: 'Respuestas !';
