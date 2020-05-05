@@ -87,7 +87,10 @@ ShowQuestionsComponent >> renderQuestionOn: aCanvas withQuestion: question [
 	aCanvas
 		paragraph: [ aCanvas
 				text: 'realizada por :   ';
-				space: 2.
+				space: 2;
+				text: 'la fecha';
+				text: question creationDate ;
+				space: 3.
 			aCanvas anchor
 				callback: [ self goToUser: question user ];
 				with: question user name ].

@@ -17,7 +17,6 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'creationDate',
-		'creationTime',
 		'user',
 		'interactions',
 		'text'
@@ -43,24 +42,9 @@ Post >> addInteraction:aUser like:aBoolean [
 	^instance.
 ]
 
-{ #category : #adding }
-Post >> alreadyLiked: aUser [
-^ interactions anySatisfy: [ :interaction | (interaction user itsMe: aUser name) & (interaction like)]
-]
-
-{ #category : #callback }
-Post >> alreadyReacted: anUser [
-	^ interactions anySatisfy: [ :interaction | interaction user itsMe: anUser name ].
-]
-
 { #category : #accesing }
 Post >> creationDate [
 	^creationDate
-]
-
-{ #category : #accesing }
-Post >> creationTime [
-	^creationTime
 ]
 
 { #category : #adding }
@@ -71,7 +55,7 @@ Post >> dislike: anUser [
 	interactions add: anInteraction
 ]
 
-{ #category : #adding }
+{ #category : #accesing }
 Post >> dislikes [
 	^ (interactions reject: [ :i | i like ]) size.
 
@@ -81,8 +65,7 @@ Post >> dislikes [
 Post >> initialize:aUser withText:aText [
 	"Prepara la instancia para su uso"
 	
-	creationDate:= Date today.
-	creationTime:= Time now.
+	creationDate:= DateAndTime now.
 	user:=aUser.
 	text:=aText.
 	interactions:= OrderedCollection new.
@@ -101,17 +84,16 @@ Post >> like: anUser [
 	interactions add: anInteraction
 ]
 
-{ #category : #adding }
+{ #category : #accesing }
 Post >> likes [
 	^ (interactions select: [ :i | i like ]) size.
 
 ]
 
-{ #category : #adding }
+{ #category : #remove }
 Post >> removeInteraction: aUser [
-	interactions isNotEmpty
-		ifTrue: [ interactions := interactions
-				reject: [ :interaction | interaction user itsMe: aUser name ] ]
+	interactions := interactions
+		reject: [ :interaction | interaction user itsMe: aUser name ]
 ]
 
 { #category : #accesing }

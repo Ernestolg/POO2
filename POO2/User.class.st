@@ -23,7 +23,6 @@ Class {
 		'name',
 		'password',
 		'creationDate',
-		'creationTime',
 		'questions',
 		'replies',
 		'favTopics',
@@ -63,11 +62,6 @@ User >> creationDate [
 	^ creationDate
 ]
 
-{ #category : #'accessing values' }
-User >> creationTime [
-	^ creationTime
-]
-
 { #category : #callback }
 User >> dislike: aPost [
 	aPost dislike: self
@@ -93,8 +87,7 @@ User >> initialize:nameUser withPassword:passUser [
 
 name:=nameUser.
 password:=passUser.
-creationDate:= Date today.
-creationTime:= Time now.
+creationDate:= DateAndTime now.
 followers := OrderedCollection new .
 questions := OrderedCollection new.
 replies  := OrderedCollection new.
@@ -113,12 +106,6 @@ User >> interactionScoring [
 ]
 
 { #category : #callback }
-User >> isFavoriteTopic: aTopicsCollection [
-
-	^ (aTopicsCollection anySatisfy: [ :topic | favTopics includes: [ :favTopic | favTopic itsMyTopic: topic name ] ]).
-]
-
-{ #category : #callback }
 User >> isFollower: anUser [
 	^ (followers anySatisfy: [:follower | (follower itsMe:  anUser name)]).
 ]
@@ -127,11 +114,6 @@ User >> isFollower: anUser [
 User >> itsMe:name2 [
 	"respondo si soy el usuario que recibo"
 	^ name=name2.
-]
-
-{ #category : #callback }
-User >> itsMyTopic: aTopicName [
-	^ favTopics includes: [ :topic | topic name == aTopicName ].
 ]
 
 { #category : #callback }
@@ -149,7 +131,7 @@ User >> password [
 	^ password
 ]
 
-{ #category : #callback }
+{ #category : #'accessing values' }
 User >> postScoring [
 
 	^ (self replyScoring + self questionScoring).
@@ -175,29 +157,23 @@ User >> questions [
 User >> relevantQuestions [
 	| questionsSet collection |
 	collection := SortedCollection
-		sortBlock: [ :a :b | (a creationDate < b creationDate) & (a creationTime < b creationTime) ].
+		sortBlock: [ :a :b | a creationDate > b creationDate ].
 	questionsSet := Set new.
-	favTopics
-		ifNotEmpty: [ favTopics do: [ :each | each addRelevant: questionsSet ] ].
-	followers
-		ifNotEmpty: [ followers do: [ :each | each addRelevant: questionsSet ] ].
+	favTopics do: [ :each | each addRelevant: questionsSet ].
+	followers do: [ :each | each addRelevant: questionsSet ].
 	collection addAll: questionsSet.
 	^ collection
 ]
 
 { #category : #remove }
-User >> removeQuestion:aQuestion [
-	questions detect: [ :question | question text == aQuestion text ] 
-							ifFound: [ 
-								aQuestion removeReplies.
-								questions remove: aQuestion.
-							]
-
-]
-
-{ #category : #remove }
-User >> removeReplies:aQuestion [
-	aQuestion replies do: [ :reply | self replies remove: reply].
+User >> removeQuestion: aQuestion [
+"Primero me aseguro que la pregunta a borrar sea parte de mis preguntas, luego mando el borrado
+en cascada para que la pregunta se encarge de borrarse junto con sus interacciones y respuestas
+luego la borro de mi coleccion"
+	questions
+		detect: [ :question | question text == aQuestion text ]
+		ifFound: [ aQuestion removeMe.
+			questions := questions remove: aQuestion ]
 ]
 
 { #category : #remove }
@@ -213,20 +189,18 @@ User >> replies [
 
 { #category : #'adding elements' }
 User >> replyQuestion: aQuestion withText: aText [
-
 	| aReply |
-	aReply  := Reply create: self withText: aText withQuestion: aQuestion.
+	aReply := Reply create: self withText: aText withQuestion: aQuestion.
 	replies add: aReply.
-	^aReply.
+	^ aReply
 ]
 
 { #category : #callback }
 User >> replyScoring [
-
-	^ (replies size) * 50.
+	^ replies sum: [ :each | each pointsWithoutUser ]
 ]
 
-{ #category : #callback }
+{ #category : #'accessing values' }
 User >> score [ 
 	
 	^ (self postScoring  + self interactionScoring)

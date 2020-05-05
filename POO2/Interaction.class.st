@@ -17,8 +17,7 @@ Class {
 	#instVars : [
 		'like',
 		'user',
-		'creationDate',
-		'creationTime'
+		'creationDate'
 	],
 	#category : #'POO2-Model'
 }
@@ -33,15 +32,9 @@ Interaction >> creationDate [
 	^ creationDate
 ]
 
-{ #category : #accessing }
-Interaction >> creationTime [
-	^ creationTime
-]
-
 { #category : #'initialization - private' }
 Interaction >> initialize: aUser withLike:aLike [
-	creationDate := Date today.
-	creationTime:= Time now.
+	creationDate := DateAndTime today.
 	user:= aUser.
 	like:=aLike.
 
@@ -50,7 +43,7 @@ Interaction >> initialize: aUser withLike:aLike [
 
 { #category : #accessing }
 Interaction >> interactionExist: aUser [
- ^(user itsMyUser: aUser).
+ ^(user itsMe: aUser name).
 ]
 
 { #category : #accessing }

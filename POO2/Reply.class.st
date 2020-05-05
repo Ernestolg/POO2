@@ -57,12 +57,6 @@ Reply >> question [
 ]
 
 { #category : #remove }
-Reply >> removeFromQuestion [
- question removeAnswer: self.
- 
-]
-
-{ #category : #remove }
 Reply >> removeFromUser [
 	user removeReply:self.
  

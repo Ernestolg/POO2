@@ -76,7 +76,7 @@ QuestionComponent >> renderBackButtonOn: aCanvas [
 { #category : #rendering }
 QuestionComponent >> renderCollectionAnswerOn: aCanvas [
 	aCanvas
-		unorderedList: [ self question replies 
+		unorderedList: [ self question myRepliesSorted  
 				do: [ :each | 
 					aCanvas
 						listItem: [ self renderAnswerOn: aCanvas withReply: each ].

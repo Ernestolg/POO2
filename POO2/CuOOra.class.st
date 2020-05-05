@@ -54,7 +54,7 @@ CuOOra class >> soleInstance [
 { #category : #'adding elements' }
 CuOOra >> addTopic: name withDescription: aDescription [	
 	|aTopic|
-	(self topicExist: name)ifTrue:[^false].
+	(topics anySatisfy: [ :each| each name= name ] )ifTrue:[^false].
 	aTopic := Topic create: name withDescription: aDescription. 
 	topics add: aTopic.
 	^aTopic.
@@ -63,7 +63,7 @@ CuOOra >> addTopic: name withDescription: aDescription [
 { #category : #'adding elements' }
 CuOOra >> addUser: anUsername withPassword: aPassword [
 |anUser|
- (self usersExist: anUsername) ifTrue: [ ^nil ].
+ (users anySatisfy: [ :each|each name = anUsername ] ) ifTrue: [ ^nil ].
  anUser := User create: anUsername withPassword: aPassword.
  users add: anUser.  
  ^anUser.
@@ -106,14 +106,6 @@ CuOOra >> myUserWithName: aName protectedBy: aPassword [
 ]
 
 { #category : #acccessing }
-CuOOra >> topicExist: aTopicName [
-	topics
-		detect: [ :topic | topic itsMyTopic: aTopicName ]
-		ifFound: [ ^true ]
-		ifNone: [ ^false ]
-]
-
-{ #category : #acccessing }
 CuOOra >> topics [ 
  ^topics.
 ]
@@ -121,12 +113,4 @@ CuOOra >> topics [
 { #category : #acccessing }
 CuOOra >> users [ 
  ^users
-]
-
-{ #category : #acccessing }
-CuOOra >> usersExist: anUsername [
-	users
-		detect: [ :user | user itsMe: anUsername ]
-		ifFound: [ ^ true ]
-		ifNone: [ ^ false ]
 ]

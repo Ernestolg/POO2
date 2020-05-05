@@ -60,7 +60,7 @@ Question >> initialize:aTitle withTopics:aTopicsCollection withText:aText withAu
 Question >> myRepliesSorted [
 "no funciona el sorted Collection"
 	| coleccion |
-	coleccion:=SortedCollection sortBlock:[:a :b| a point  >= b point  ].
+	coleccion:=SortedCollection sortBlock:[:a :b| a score  > b score  ].
 	coleccion addAll: (replies) .	
 	^ coleccion.
 ]
@@ -77,20 +77,14 @@ Question >> removeFromUser [
 
 { #category : #remove }
 Question >> removeMe [
-	replies ifNotEmpty: [ replies do: [ :each | each removeMe ] ].
 	self
-		removeReply ;
-		removeFromTopic;
-		removeFromUser
+		removeReplies ;
+		removeFromTopic.
 ]
 
 { #category : #remove }
 Question >> removeReplies [
-	replies do: [ :reply | reply user removeReply: reply ]
-]
-
-{ #category : #remove }
-Question >> removeReply [
+	replies do: [ :reply | reply removeFromUser ].
 	replies :=nil.
 ]
 
@@ -99,12 +93,12 @@ Question >> replies [
 	^replies .
 ]
 
-{ #category : #accessing }
+{ #category : #accesing }
 Question >> replies: anObject [
 	replies := anObject
 ]
 
-{ #category : #accessing }
+{ #category : #accesing }
 Question >> title [
 	^ title
 ]
@@ -114,12 +108,12 @@ Question >> title: aString [
 	title:=aString
 ]
 
-{ #category : #accessing }
+{ #category : #accesing }
 Question >> topics [
 	^ topics
 ]
 
-{ #category : #accessing }
+{ #category : #accesing }
 Question >> topics: anObject [
 	topics := anObject
 ]
