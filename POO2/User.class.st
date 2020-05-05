@@ -29,7 +29,7 @@ Class {
 		'favTopics',
 		'followers'
 	],
-	#category : #POO2
+	#category : #'POO2-Model'
 }
 
 { #category : #initialization }

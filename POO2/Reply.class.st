@@ -19,7 +19,7 @@ Class {
 	#instVars : [
 		'question'
 	],
-	#category : #POO2
+	#category : #'POO2-Model'
 }
 
 { #category : #'initialization - private' }

@@ -19,7 +19,7 @@ Class {
 		'description',
 		'questions'
 	],
-	#category : #POO2
+	#category : #'POO2-Model'
 }
 
 { #category : #initialization }

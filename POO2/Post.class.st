@@ -22,7 +22,7 @@ Class {
 		'interactions',
 		'text'
 	],
-	#category : #POO2
+	#category : #'POO2-Model'
 }
 
 { #category : #intialization }

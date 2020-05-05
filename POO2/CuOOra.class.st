@@ -21,7 +21,7 @@ Class {
 	#classInstVars : [
 		'soleInstance'
 	],
-	#category : #POO2
+	#category : #'POO2-Model'
 }
 
 { #category : #initialization }

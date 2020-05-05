@@ -21,7 +21,7 @@ Class {
 		'topics',
 		'replies'
 	],
-	#category : #POO2
+	#category : #'POO2-Model'
 }
 
 { #category : #'initialization - private' }
