@@ -23,14 +23,6 @@ Class {
 }
 
 { #category : #'initialization - private' }
-Reply class >> create: aUser text: aString question: aQuestion [
-	| instancia |
-	instancia := self new.
-	instancia create: aUser text: aString question: aQuestion.
-	^instancia.
-]
-
-{ #category : #'initialization - private' }
 Reply class >> create: anUser withText: aText withQuestion: aQuestion [
 	| instance |
 	instance := self new initialize: anUser withText: aText withQuestion: aQuestion.
@@ -59,11 +51,5 @@ Reply >> question [
 { #category : #remove }
 Reply >> removeFromUser [
 	user removeReply:self.
- 
-]
-
-{ #category : #remove }
-Reply >> removeMe [ 
-	self removeFromUser.
  
 ]

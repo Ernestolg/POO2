@@ -29,19 +29,6 @@ Post class >> create:aUser withText:aText [
 	^ self new initialize: aUser withText: aText.
 ]
 
-{ #category : #adding }
-Post >> addInteraction:aUser like:aBoolean [
-	"La idea de este metodo es que ,llege el objeto usuario, con su like
-	y primero ,se busque en las interacciones de este posteo si existe
-	una interaccion de este usuario,si existe ,se guarda en instancia 
-	y luego se remueve de la lista.Luego se crea la interaccion nueva" 
-	|instance|
-	self removeInteraction:aUser.
-	instance:= Interaction create: aUser withLike: aBoolean.	
-	interactions add:instance.
-	^instance.
-]
-
 { #category : #accesing }
 Post >> creationDate [
 	^creationDate
@@ -93,7 +80,7 @@ Post >> likes [
 { #category : #remove }
 Post >> removeInteraction: aUser [
 	interactions := interactions
-		reject: [ :interaction | interaction user itsMe: aUser name ]
+		reject: [ :interaction | interaction interactionExist:aUser ]
 ]
 
 { #category : #accesing }

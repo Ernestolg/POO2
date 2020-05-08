@@ -41,7 +41,7 @@ Question >> addToTopics:aCollection. [
 	aCollection do:[:each|each questions:self]
 ]
 
-{ #category : #accesing }
+{ #category : #callback }
 Question >> imFromUser:anUser [
 	^(user itsMe: anUser name).
 ]
@@ -71,11 +71,6 @@ Question >> removeFromTopic [
 ]
 
 { #category : #remove }
-Question >> removeFromUser [
-	user removeQuestion: self.
-]
-
-{ #category : #remove }
 Question >> removeMe [
 	self
 		removeReplies ;
@@ -85,7 +80,7 @@ Question >> removeMe [
 { #category : #remove }
 Question >> removeReplies [
 	replies do: [ :reply | reply removeFromUser ].
-	replies :=nil.
+	replies removeAll.
 ]
 
 { #category : #accesing }
@@ -94,18 +89,8 @@ Question >> replies [
 ]
 
 { #category : #accesing }
-Question >> replies: anObject [
-	replies := anObject
-]
-
-{ #category : #accesing }
 Question >> title [
 	^ title
-]
-
-{ #category : #accesing }
-Question >> title: aString [
-	title:=aString
 ]
 
 { #category : #accesing }

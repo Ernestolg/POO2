@@ -43,10 +43,9 @@ User >> addFavTopic:topic [
 ]
 
 { #category : #'adding elements' }
-User >> addRelevant:aSet [
-
-aSet addAll: self questions.
-^aSet.
+User >> addRelevant: aSet [
+	aSet addAll: self questions.
+	^ aSet
 ]
 
 { #category : #'adding elements' }
@@ -97,12 +96,15 @@ favTopics := OrderedCollection new.
 { #category : #callback }
 User >> interactionScoring [
 	"It retrives the difference between likes and dislikes of user posts (questions or replies)"
+
 	| questionReactionScore replyReactionScore |
-	
-	questionReactionScore := questions inject: 0 into: [:total :question | total + question score ].
-	replyReactionScore := replies inject: 0 into: [:total :reply | total + reply score ].  
-	
-	^ (questionReactionScore + replyReactionScore ).
+	questionReactionScore := questions
+		inject: 0
+		into: [ :total :question | total + question score ].
+	replyReactionScore := replies
+		inject: 0
+		into: [ :total :reply | total + reply score ].
+	^ questionReactionScore + replyReactionScore
 ]
 
 { #category : #callback }
@@ -131,13 +133,13 @@ User >> password [
 	^ password
 ]
 
-{ #category : #'accessing values' }
+{ #category : #callback }
 User >> postScoring [
 
 	^ (self replyScoring + self questionScoring).
 ]
 
-{ #category : #'adding elements' }
+{ #category : #callback }
 User >> protected:aString [
 	^ (self password=aString).
 ]
@@ -167,13 +169,16 @@ User >> relevantQuestions [
 
 { #category : #remove }
 User >> removeQuestion: aQuestion [
-"Primero me aseguro que la pregunta a borrar sea parte de mis preguntas, luego mando el borrado
+	"Primero me aseguro que la pregunta a borrar sea parte de mis preguntas, luego mando el borrado
 en cascada para que la pregunta se encarge de borrarse junto con sus interacciones y respuestas
 luego la borro de mi coleccion"
+
 	questions
-		detect: [ :question | question text == aQuestion text ]
+		detect: [ :question | question text = aQuestion text ]
 		ifFound: [ aQuestion removeMe.
-			questions := questions remove: aQuestion ]
+			questions remove: aQuestion.
+			^ true ].
+	^ false
 ]
 
 { #category : #remove }
@@ -197,17 +202,19 @@ User >> replyQuestion: aQuestion withText: aText [
 
 { #category : #callback }
 User >> replyScoring [
-	^ replies sum: [ :each | each pointsWithoutUser ]
+	replies isEmpty
+		ifTrue: [ ^ 0 ]
+		ifFalse: [ ^ replies sum: [ :each | each pointsWithoutUser ] ]
 ]
 
-{ #category : #'accessing values' }
+{ #category : #callback }
 User >> score [ 
 	
 	^ (self postScoring  + self interactionScoring)
 	
 ]
 
-{ #category : #callback }
+{ #category : #remove }
 User >> unfollow: anUser [
 	followers := followers reject: [ :each | each itsMe: anUser name]
 ]

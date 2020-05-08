@@ -49,13 +49,6 @@ questions := OrderedCollection new.
 ]
 
 { #category : #accessing }
-Topic >> itsMyTopic:aString [
- "devuelvo true o false si soy el topico que me llega por parametro"
-	^name=aString.
-	
-]
-
-{ #category : #accessing }
 Topic >> name [
 	^ name.
 ]
