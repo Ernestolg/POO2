@@ -5,8 +5,6 @@ Class {
 		'testedUser',
 		'testedUser2',
 		'testedUser3',
-		'aQuestion',
-		'aReply',
 		'aTopic',
 		'topicsCollection'
 	],
@@ -52,7 +50,7 @@ UserSetTest >> setUp [
 	testedUser3 := User create: 'Testing3' withPassword: 'pass'.
 	aTopic := Topic create: 'General' withDescription: 'General Topic'.
 	topicsCollection := OrderedCollection new.
-	topicsCollection add: aTopic
+	topicsCollection add: aTopic.
 ]
 
 { #category : #'setUp-tearDown' }
@@ -77,6 +75,7 @@ UserSetTest >> testAddRelevant [
 
 { #category : #tests }
 UserSetTest >> testAskQuestion [
+	|aQuestion|
 	self assert: testedUser questions size equals: 0.
 	aQuestion := testedUser
 		askQuestion: 'Which is the best strategy?'
@@ -152,6 +151,7 @@ UserSetTest >> testProtected [
 
 { #category : #tests }
 UserSetTest >> testRemoveQuestion [
+	|aQuestion|
 	self assert: testedUser questions size equals: 0.
 	aQuestion := testedUser
 		askQuestion: 'Which is the best strategy?'
@@ -160,6 +160,20 @@ UserSetTest >> testRemoveQuestion [
 	self assert: testedUser questions size equals: 1.
 	testedUser removeQuestion: aQuestion.
 	self assert: testedUser questions size equals: 0
+]
+
+{ #category : #tests }
+UserSetTest >> testRemoveReply [
+	|reply aQuestion|
+	self assert: testedUser replies size equals: 0.
+	aQuestion := testedUser
+		askQuestion: 'Which is the best strategy?'
+		withText: 'I need to manage this project'
+		withTopics: topicsCollection.
+	reply:=testedUser replyQuestion: aQuestion withText:'Pepe'. 
+	self assert: testedUser replies size equals: 1.
+	testedUser removeReply: reply.
+	self assert: testedUser replies size equals: 0
 ]
 
 { #category : #tests }
@@ -179,6 +193,7 @@ UserSetTest >> testScore [
 
 { #category : #tests }
 UserSetTest >> testUserReactions [
+	|aQuestion|
 	aQuestion := testedUser
 		askQuestion: 'Which is the best strategy?'
 		withText: 'I need to manage this project'
